@@ -1,0 +1,81 @@
+services:
+  mysql_db:
+    image: mysql:latest
+    container_name: mysql_${APPS_SLUG}_container_${ENV}
+    environment:
+      - MYSQL_DATABASE=${DATABASE_MYSQL_NAME}
+      - MYSQL_USER=${DATABASE_MYSQL_USERNAME}
+      - MYSQL_PASSWORD=${DATABASE_MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=password
+      - TZ=Asia/Jakarta
+    ports:
+      - 3307:3306
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - backend
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-ppassword"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis_db:
+    image: redis/redis-stack-server:latest
+    container_name: redis_${APPS_SLUG}_container_${ENV}
+    environment:
+      - REDIS_ARGS=--user ${DATABASE_CACHE_REDIS_USERNAME} on +@all ~* >${DATABASE_CACHE_REDIS_PASSWORD} --requirepass ${DATABASE_CACHE_REDIS_PASSWORD}
+    ports:
+      - 6380:6379
+    volumes:
+      - redis_data:/data
+    networks:
+      - backend
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app:
+    container_name: golang_${APPS_SLUG}_container_${ENV}
+    tty: true
+    build:
+      dockerfile: Dockerfile
+      context: .
+      target: build-release-stage
+      args:
+        ENV: ${ENV}
+        PORT: ${SERVER_PORT}
+    environment:
+      - ENV=${ENV}
+      - PORT=${SERVER_PORT}
+    expose:
+      - ${SERVER_PORT}
+    command: ["sh", "-c", "/dist/main -env \"$ENV\""]
+    ports:
+      - 8081:${SERVER_PORT}
+    restart: on-failure
+    volumes:
+      - .:/app
+    depends_on:
+      mysql_db:
+        condition: service_healthy
+      redis_db:
+        condition: service_healthy
+    networks:
+      - backend
+
+volumes:
+  mysql_data:
+    external: true
+    name: mysql_${APPS_SLUG}_data_${ENV}
+  redis_data:
+    external: true
+    name: redis_${APPS_SLUG}_data_${ENV}
+
+# Networks to be created to facilitate communication between containers
+networks:
+  backend:
+    external: true
+    name: ${APPS_SLUG}_backend_${ENV}
