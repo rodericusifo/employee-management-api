@@ -10,7 +10,6 @@ ENV CGO_ENABLED=0
 # Install linux packages
 RUN apk update
 RUN apk add --no-cache git bash
-RUN apk add build-base make
 
 # Setup working directory
 WORKDIR /app
@@ -22,13 +21,12 @@ COPY go.mod go.sum ./
 RUN go mod download
 RUN go mod tidy
 RUN go mod verify
-RUN go install github.com/google/wire/cmd/wire@latest
 
 # Copy the source from the current directory to the working Directory inside the container
 COPY . .
 
 # Build Application
-RUN make build
+RUN go build -o /dist/main cmd/main.go
 
 ###############################
 # STEP 2: build a small image #

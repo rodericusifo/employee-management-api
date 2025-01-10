@@ -15,7 +15,7 @@ import (
 	internal_app_core_permission_resource "github.com/rodericusifo/employee-management-api/internal/app/core/permission/resource"
 	internal_app_core_role_permission_resource "github.com/rodericusifo/employee-management-api/internal/app/core/role_permission/resource"
 	internal_app_core_user_resource "github.com/rodericusifo/employee-management-api/internal/app/core/user/resource"
-	lib_mockery_mocks "github.com/rodericusifo/employee-management-api/lib/mockery/mocks"
+	lib_mockery_mocks "github.com/rodericusifo/employee-management-api/lib/mocks"
 )
 
 var (

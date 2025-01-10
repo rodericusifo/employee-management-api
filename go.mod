@@ -10,7 +10,6 @@ require (
 	github.com/gofiber/fiber/v2 v2.46.0
 	github.com/golang-jwt/jwt/v5 v5.0.0
 	github.com/google/uuid v1.3.0
-	github.com/google/wire v0.5.0
 	github.com/imdario/mergo v0.3.16
 	github.com/kachit/gorm-seeder v0.0.3
 	github.com/redis/go-redis/v9 v9.0.5

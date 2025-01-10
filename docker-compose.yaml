@@ -10,6 +10,7 @@ services:
       - TZ=Asia/Jakarta
     ports:
       - 3307:3306
+    restart: on-failure
     volumes:
       - mysql_data:/var/lib/mysql
     networks:
@@ -27,6 +28,7 @@ services:
       - REDIS_ARGS=--user ${DATABASE_CACHE_REDIS_USERNAME} on +@all ~* >${DATABASE_CACHE_REDIS_PASSWORD} --requirepass ${DATABASE_CACHE_REDIS_PASSWORD}
     ports:
       - 6380:6379
+    restart: on-failure
     volumes:
       - redis_data:/data
     networks:

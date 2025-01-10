@@ -5,7 +5,7 @@ import (
 
 	"github.com/rodericusifo/employee-management-api/internal/pkg/util/handler"
 
-	lib_mockery_mocks "github.com/rodericusifo/employee-management-api/lib/mockery/mocks"
+	lib_mockery_mocks "github.com/rodericusifo/employee-management-api/lib/mocks"
 )
 
 var (

@@ -1,11 +1,6 @@
-//go:build wireinject
-// +build wireinject
-
 package employee
 
 import (
-	"github.com/google/wire"
-
 	internal_pkg_util_getter "github.com/rodericusifo/employee-management-api/internal/pkg/util/getter"
 
 	internal_app_core_employee_resource "github.com/rodericusifo/employee-management-api/internal/app/core/employee/resource"
@@ -14,11 +9,9 @@ import (
 )
 
 func EmployeeService() internal_app_core_employee_service.IEmployeeService {
-	wire.Build(
-		internal_pkg_util_getter.GetMysqlDatabaseSQLConnection,
-		internal_app_repository_database_sql_employee.InitMysqlEmployeeDatabaseSQLRepository,
-		internal_app_core_employee_resource.InitEmployeeResource,
-		internal_app_core_employee_service.InitEmployeeService,
-	)
-	return &internal_app_core_employee_service.EmployeeService{}
+	mysqlDatabaseSQLConnection := internal_pkg_util_getter.GetMysqlDatabaseSQLConnection()
+	iEmployeeDatabaseSQLRepository := internal_app_repository_database_sql_employee.InitMysqlEmployeeDatabaseSQLRepository(mysqlDatabaseSQLConnection)
+	iEmployeeResource := internal_app_core_employee_resource.InitEmployeeResource(iEmployeeDatabaseSQLRepository)
+	iEmployeeService := internal_app_core_employee_service.InitEmployeeService(iEmployeeResource)
+	return iEmployeeService
 }

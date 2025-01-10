@@ -1,0 +1,14 @@
+package role_permission
+
+import (
+	internal_app_core_role_permission_resource "github.com/rodericusifo/employee-management-api/internal/app/core/role_permission/resource"
+	internal_app_repository_database_sql_role_permission "github.com/rodericusifo/employee-management-api/internal/app/repository/database/sql/role_permission"
+	internal_pkg_util_getter "github.com/rodericusifo/employee-management-api/internal/pkg/util/getter"
+)
+
+func RolePermissionResource() internal_app_core_role_permission_resource.IRolePermissionResource {
+	mysqlDatabaseSQLConnection := internal_pkg_util_getter.GetMysqlDatabaseSQLConnection()
+	iRolePermissionDatabaseSQLRepository := internal_app_repository_database_sql_role_permission.InitMysqlRolePermissionDatabaseSQLRepository(mysqlDatabaseSQLConnection)
+	iRolePermissionResource := internal_app_core_role_permission_resource.InitRolePermissionResource(iRolePermissionDatabaseSQLRepository)
+	return iRolePermissionResource
+}

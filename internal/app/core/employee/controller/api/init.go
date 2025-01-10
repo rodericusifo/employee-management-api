@@ -8,7 +8,7 @@ import (
 
 	jwtware "github.com/gofiber/contrib/jwt"
 
-	lib_wire_core_service_employee "github.com/rodericusifo/employee-management-api/lib/wire/core/service/employee"
+	lib_wire_core_service_employee "github.com/rodericusifo/employee-management-api/lib/injector/core/service/employee"
 )
 
 func InitAPI(router fiber.Router) {

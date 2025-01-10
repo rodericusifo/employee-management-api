@@ -24,22 +24,12 @@ endef
 ENV ?=
 APPS_NAME = $(shell grep -E '^APPS_NAME=' env/$(ENV).application.env | cut -d '=' -f 2)
 APPS_SLUG = $(shell echo "$(APPS_NAME)" | tr '[:upper:]' '[:lower:]' | tr ' ' '_' | tr -d '"')
-WIRE_FILES := $(shell find lib/wire/core -name "wire.go")
 
-.PHONY: gen-wire gen-mock build test-cover start stop
+.PHONY: gen-mock test-cover start stop
 
-gen-wire:
-	@echo -e "$(call log_action,Generate Wire)"
-	@for file in $(WIRE_FILES); do \
-		wire $$(dirname $$file)/wire.go; \
-	done
 gen-mock:
 	@echo -e "$(call log_action,Generate Mock)"
 	mockery
-
-build: gen-wire
-	@echo -e "$(call log_action,Build Program)"
-	go build -o /dist/main cmd/main.go
 
 test-cover: gen-mock
 	@echo -e "$(call log_action,Test Coverage)"
