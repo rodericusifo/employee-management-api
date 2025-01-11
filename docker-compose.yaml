@@ -1,7 +1,7 @@
 services:
-  mysql_db:
+  mysql:
     image: mysql:latest
-    container_name: mysql_${APPS_SLUG}_container_${ENV}
+    container_name: mysql_${APPS_SLUG}_${ENV}
     environment:
       - MYSQL_DATABASE=${DATABASE_MYSQL_NAME}
       - MYSQL_USER=${DATABASE_MYSQL_USERNAME}
@@ -16,14 +16,14 @@ services:
     networks:
       - backend
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-ppassword"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-ppassword"]
       interval: 10s
       timeout: 5s
       retries: 5
 
-  redis_db:
+  redis:
     image: redis/redis-stack-server:latest
-    container_name: redis_${APPS_SLUG}_container_${ENV}
+    container_name: redis_${APPS_SLUG}_${ENV}
     environment:
       - REDIS_ARGS=--user ${DATABASE_CACHE_REDIS_USERNAME} on +@all ~* >${DATABASE_CACHE_REDIS_PASSWORD} --requirepass ${DATABASE_CACHE_REDIS_PASSWORD}
     ports:
@@ -40,7 +40,7 @@ services:
       retries: 5
 
   app:
-    container_name: golang_${APPS_SLUG}_container_${ENV}
+    container_name: app_${APPS_SLUG}_${ENV}
     tty: true
     build:
       dockerfile: Dockerfile
@@ -61,9 +61,9 @@ services:
     volumes:
       - .:/app
     depends_on:
-      mysql_db:
+      mysql:
         condition: service_healthy
-      redis_db:
+      redis:
         condition: service_healthy
     networks:
       - backend
@@ -71,13 +71,13 @@ services:
 volumes:
   mysql_data:
     external: true
-    name: mysql_${APPS_SLUG}_data_${ENV}
+    name: mysql_data_${APPS_SLUG}_${ENV}
   redis_data:
     external: true
-    name: redis_${APPS_SLUG}_data_${ENV}
+    name: redis_data_${APPS_SLUG}_${ENV}
 
 # Networks to be created to facilitate communication between containers
 networks:
   backend:
     external: true
-    name: ${APPS_SLUG}_backend_${ENV}
+    name: backend_${APPS_SLUG}_${ENV}

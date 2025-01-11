@@ -38,9 +38,9 @@ test-cover: gen-mock
 start:
 	$(call check_env,start)
 	@echo -e "$(call log_action,Start Program ($(ENV)))"
-	docker volume ls | grep mysql_$(APPS_SLUG)_data_$(ENV) || docker volume create --name mysql_$(APPS_SLUG)_data_$(ENV)
-	docker volume ls | grep redis_$(APPS_SLUG)_data_$(ENV) || docker volume create --name redis_$(APPS_SLUG)_data_$(ENV)
-	docker network ls | grep $(APPS_SLUG)_backend_$(ENV) || docker network create $(APPS_SLUG)_backend_$(ENV) 
+	docker volume ls | grep mysql_data_$(APPS_SLUG)_$(ENV) || docker volume create --name mysql_data_$(APPS_SLUG)_$(ENV)
+	docker volume ls | grep redis_data_$(APPS_SLUG)_$(ENV) || docker volume create --name redis_data_$(APPS_SLUG)_$(ENV)
+	docker network ls | grep backend_$(APPS_SLUG)_$(ENV) || docker network create backend_$(APPS_SLUG)_$(ENV)
 	ENV=$(ENV) APPS_SLUG=$(APPS_SLUG) docker compose --env-file env/$(ENV).application.env up --build -d
 
 stop:
