@@ -4,7 +4,7 @@ import (
 	"time"
 
 	"github.com/rodericusifo/employee-management-api/internal/pkg/constant"
-	"github.com/rodericusifo/employee-management-api/mocks"
+	"github.com/rodericusifo/employee-management-api/internal/mocks"
 )
 
 var (

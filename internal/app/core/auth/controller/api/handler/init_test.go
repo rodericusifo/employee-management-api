@@ -4,7 +4,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 
 	"github.com/rodericusifo/employee-management-api/internal/pkg/util/handler"
-	"github.com/rodericusifo/employee-management-api/mocks"
+	"github.com/rodericusifo/employee-management-api/internal/mocks"
 )
 
 var (

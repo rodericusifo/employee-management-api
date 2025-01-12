@@ -9,7 +9,7 @@ import (
 	"github.com/rodericusifo/employee-management-api/internal/pkg/types"
 	"github.com/rodericusifo/employee-management-api/internal/pkg/util/handler"
 	"github.com/rodericusifo/employee-management-api/internal/pkg/util/patcher"
-	"github.com/rodericusifo/employee-management-api/mocks"
+	"github.com/rodericusifo/employee-management-api/internal/mocks"
 
 	jwtware "github.com/gofiber/contrib/jwt"
 
