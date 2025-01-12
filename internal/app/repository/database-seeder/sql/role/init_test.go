@@ -10,8 +10,6 @@ import (
 	"github.com/rodericusifo/employee-management-api/internal/pkg/util/mocker"
 
 	gorm_seeder "github.com/kachit/gorm-seeder"
-
-	pkg_constant "github.com/rodericusifo/employee-management-api/pkg/constant"
 )
 
 var (
@@ -26,7 +24,7 @@ var (
 )
 
 func SetupTestRoleDatabaseSeederSQLRepository() {
-	dialect := pkg_constant.MYSQL
+	dialect := constant.MYSQL
 	db, mock := mocker.MockDatabaseSQLConnection(dialect)
 
 	roleDatabaseSeederSQLRepository = InitMysqlRoleDatabaseSeederSQLRepository(gorm_seeder.SeederConfiguration{})

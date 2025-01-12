@@ -4,13 +4,12 @@ import (
 	"github.com/gofiber/fiber/v2"
 
 	"github.com/rodericusifo/employee-management-api/internal/pkg/util/handler"
-
-	lib_mockery_mocks "github.com/rodericusifo/employee-management-api/lib/mocks"
+	"github.com/rodericusifo/employee-management-api/mocks"
 )
 
 var (
 	mockApp         *fiber.App
-	mockAuthService *lib_mockery_mocks.IAuthService
+	mockAuthService *mocks.IAuthService
 	authHandler     *AuthHandler
 )
 
@@ -23,7 +22,7 @@ func SetupTestAuthHandler() {
 		ErrorHandler: handler.APIError,
 	})
 
-	mockAuthService = new(lib_mockery_mocks.IAuthService)
+	mockAuthService = new(mocks.IAuthService)
 
 	auth := mockApp.Group("/auth")
 	authHandler = InitAuthHandler(mockAuthService)

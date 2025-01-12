@@ -7,8 +7,6 @@ import (
 
 	"github.com/rodericusifo/employee-management-api/internal/pkg/constant"
 	"github.com/rodericusifo/employee-management-api/internal/pkg/util/mocker"
-
-	pkg_constant "github.com/rodericusifo/employee-management-api/pkg/constant"
 )
 
 var (
@@ -22,7 +20,7 @@ var (
 )
 
 func SetupTestMysqlUserDatabaseSQLRepository() {
-	dialect := pkg_constant.MYSQL
+	dialect := constant.MYSQL
 	db, mock := mocker.MockDatabaseSQLConnection(dialect)
 
 	userDatabaseSQLRepository = InitMysqlUserDatabaseSQLRepository(db)

@@ -26,7 +26,7 @@ RUN go mod verify
 COPY . .
 
 # Build Application
-RUN go build -o /dist/main cmd/main.go
+RUN go build -o /dist/app/main cmd/app/main.go
 
 ###############################
 # STEP 2: build a small image #
@@ -48,7 +48,7 @@ ENV PORT=${PORT}
 WORKDIR /app
 
 # Copy the binary
-COPY --from=build-stage /dist/main /dist/main
+COPY --from=build-stage /dist/app/main /dist/app/main
 
 # Copy environment files
 COPY env /app/env
@@ -61,4 +61,4 @@ USER appuser
 EXPOSE ${PORT}
 
 # Use shell form for CMD
-CMD ["sh", "-c", "/dist/main -env \"$ENV\""]
+CMD ["sh", "-c", "/dist/app/main -env \"$ENV\""]

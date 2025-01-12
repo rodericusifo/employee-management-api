@@ -7,8 +7,7 @@ import (
 	"github.com/stretchr/testify/assert"
 
 	"github.com/rodericusifo/employee-management-api/internal/app/model/database/sql"
-
-	pkg_types "github.com/rodericusifo/employee-management-api/pkg/types"
+	"github.com/rodericusifo/employee-management-api/internal/pkg/types"
 )
 
 func init() {
@@ -18,7 +17,7 @@ func init() {
 func TestRoleResource_FirstRole(t *testing.T) {
 	type (
 		args struct {
-			query *pkg_types.QuerySQL
+			query *types.QuerySQL
 		}
 		result struct {
 			value *sql.Role
@@ -45,7 +44,7 @@ func TestRoleResource_FirstRole(t *testing.T) {
 			before: func() {
 				{
 					var (
-						arg1 *pkg_types.QuerySQL = nil
+						arg1 *types.QuerySQL = nil
 					)
 					var (
 						result *sql.Role = nil
@@ -75,7 +74,7 @@ func TestRoleResource_FirstRole(t *testing.T) {
 			before: func() {
 				{
 					var (
-						arg1 *pkg_types.QuerySQL = nil
+						arg1 *types.QuerySQL = nil
 					)
 					var (
 						result *sql.Role = &sql.Role{

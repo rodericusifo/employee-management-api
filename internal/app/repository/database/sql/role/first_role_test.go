@@ -9,8 +9,7 @@ import (
 	"github.com/stretchr/testify/assert"
 
 	"github.com/rodericusifo/employee-management-api/internal/app/model/database/sql"
-
-	pkg_types "github.com/rodericusifo/employee-management-api/pkg/types"
+	"github.com/rodericusifo/employee-management-api/internal/pkg/types"
 )
 
 func init() {
@@ -20,7 +19,7 @@ func init() {
 func TestMysqlRoleDatabaseSQLRepository_FirstRole(t *testing.T) {
 	type (
 		args struct {
-			query *pkg_types.QuerySQL
+			query *types.QuerySQL
 		}
 		result struct {
 			value *sql.Role
@@ -38,8 +37,8 @@ func TestMysqlRoleDatabaseSQLRepository_FirstRole(t *testing.T) {
 		{
 			desc: "[ERROR]_because_something_error_happens",
 			input: args{
-				query: &pkg_types.QuerySQL{
-					Selects: []pkg_types.SelectQuerySQLOperation{
+				query: &types.QuerySQL{
+					Selects: []types.SelectQuerySQLOperation{
 						{Field: "id"},
 						{Field: "xid"},
 						{Field: "name"},
@@ -47,7 +46,7 @@ func TestMysqlRoleDatabaseSQLRepository_FirstRole(t *testing.T) {
 						{Field: "created_at"},
 						{Field: "updated_at"},
 					},
-					Searches: [][]pkg_types.SearchQuerySQLOperation{
+					Searches: [][]types.SearchQuerySQLOperation{
 						{
 							{Field: "xid", Operator: "=", Value: mockUUID},
 							{Field: "slug", Operator: "=", Value: "super_admin"},
@@ -79,8 +78,8 @@ func TestMysqlRoleDatabaseSQLRepository_FirstRole(t *testing.T) {
 		{
 			desc: "[SUCCESS]_first_role",
 			input: args{
-				query: &pkg_types.QuerySQL{
-					Selects: []pkg_types.SelectQuerySQLOperation{
+				query: &types.QuerySQL{
+					Selects: []types.SelectQuerySQLOperation{
 						{Field: "id"},
 						{Field: "xid"},
 						{Field: "name"},
@@ -88,7 +87,7 @@ func TestMysqlRoleDatabaseSQLRepository_FirstRole(t *testing.T) {
 						{Field: "created_at"},
 						{Field: "updated_at"},
 					},
-					Searches: [][]pkg_types.SearchQuerySQLOperation{
+					Searches: [][]types.SearchQuerySQLOperation{
 						{
 							{Field: "xid", Operator: "=", Value: mockUUID},
 							{Field: "slug", Operator: "=", Value: "super_admin"},
@@ -98,23 +97,23 @@ func TestMysqlRoleDatabaseSQLRepository_FirstRole(t *testing.T) {
 			},
 			output: result{
 				value: &sql.Role{
-					ID: 1,
-					XID: mockUUID,
-					Name: "Super Admin",
-					Slug: "super_admin",
+					ID:        1,
+					XID:       mockUUID,
+					Name:      "Super Admin",
+					Slug:      "super_admin",
 					CreatedAt: mockDateTime,
 					UpdatedAt: mockDateTime,
 				},
-				err:   nil,
+				err: nil,
 			},
 			before: func() {
 				{
 					var (
-						arg1 = mockUUID
-						arg2 = "super_admin"
+						arg1         = mockUUID
+						arg2         = "super_admin"
 						rowsInstance = sqlmock.NewRows([]string{"id", "xid", "name", "slug", "created_at", "updated_at"})
 					)
-					rowsInstance.AddRow(1, mockUUID, "Super Admin", "super_admin",mockDateTime, mockDateTime)
+					rowsInstance.AddRow(1, mockUUID, "Super Admin", "super_admin", mockDateTime, mockDateTime)
 					mockQuery.ExpectQuery(
 						regexp.QuoteMeta(
 							"SELECT `roles`.`id`,`roles`.`xid`,`roles`.`name`,`roles`.`slug`,`roles`.`created_at`,`roles`.`updated_at` FROM `roles` WHERE `roles`.`xid` = ? AND `roles`.`slug` = ? ORDER BY `roles`.`id` LIMIT 1",

@@ -1,9 +1,9 @@
 package validator
 
 import (
-	"github.com/rodericusifo/employee-management-api/internal/pkg/types"
+	"github.com/sirupsen/logrus"
 
-	log "github.com/sirupsen/logrus"
+	"github.com/rodericusifo/employee-management-api/internal/pkg/types"
 )
 
 type IRequestUser interface {
@@ -14,7 +14,7 @@ func ValidateRequestUser(req IRequestUser) error {
 	validator := types.InitValidator()
 
 	if err := validator.Validate(req); err != nil {
-		log.WithFields(log.Fields{
+		logrus.WithFields(logrus.Fields{
 			"message": "validate request user fail",
 			"detail":  err,
 		}).Errorln("[VALIDATE REQUEST USER]")

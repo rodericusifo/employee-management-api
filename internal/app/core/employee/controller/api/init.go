@@ -8,13 +8,13 @@ import (
 
 	jwtware "github.com/gofiber/contrib/jwt"
 
-	lib_wire_core_service_employee "github.com/rodericusifo/employee-management-api/lib/injector/core/service/employee"
+	registry_service_employee "github.com/rodericusifo/employee-management-api/registry/service/employee"
 )
 
 func InitAPI(router fiber.Router) {
 	employee := router.Group("/employees")
 	employee.Use(jwtware.New(*getter.GetJWTAuthConfig()))
-	employeeService := lib_wire_core_service_employee.EmployeeService()
+	employeeService := registry_service_employee.EmployeeService()
 	employeeHandler := handler.InitEmployeeHandler(employeeService)
 	employeeHandler.Mount(employee)
 }

@@ -4,12 +4,11 @@ import (
 	"time"
 
 	"github.com/rodericusifo/employee-management-api/internal/pkg/constant"
-
-	lib_mockery_mocks "github.com/rodericusifo/employee-management-api/lib/mocks"
+	"github.com/rodericusifo/employee-management-api/mocks"
 )
 
 var (
-	mockEmployeeResource *lib_mockery_mocks.IEmployeeResource
+	mockEmployeeResource *mocks.IEmployeeResource
 	employeeService      IEmployeeService
 )
 
@@ -20,7 +19,7 @@ var (
 )
 
 func SetupTestEmployeeService() {
-	mockEmployeeResource = new(lib_mockery_mocks.IEmployeeResource)
+	mockEmployeeResource = new(mocks.IEmployeeResource)
 
 	employeeService = InitEmployeeService(mockEmployeeResource)
 

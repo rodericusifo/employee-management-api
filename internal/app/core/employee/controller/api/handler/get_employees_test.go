@@ -17,11 +17,11 @@ import (
 	"github.com/rodericusifo/employee-management-api/internal/app/core/employee/service/dto/input"
 	"github.com/rodericusifo/employee-management-api/internal/app/core/employee/service/dto/output"
 	"github.com/rodericusifo/employee-management-api/internal/app/model/database/sql"
+	"github.com/rodericusifo/employee-management-api/internal/pkg/types"
 
 	net_url "net/url"
 
-	pkg_types "github.com/rodericusifo/employee-management-api/pkg/types"
-	pkg_util_response "github.com/rodericusifo/employee-management-api/pkg/util/response"
+	internal_pkg_util_response "github.com/rodericusifo/employee-management-api/internal/pkg/util/response"
 )
 
 func init() {
@@ -60,21 +60,21 @@ func TestEmployeeHandler_GetEmployees(t *testing.T) {
 			before: func() {
 				{
 					var (
-						arg1 *pkg_types.QuerySQL = &pkg_types.QuerySQL{
-							Selects: []pkg_types.SelectQuerySQLOperation{
+						arg1 *types.QuerySQL = &types.QuerySQL{
+							Selects: []types.SelectQuerySQLOperation{
 								{Field: "id"},
 								{Field: "name"},
 								{Field: "email"},
 							},
-							Searches: [][]pkg_types.SearchQuerySQLOperation{
+							Searches: [][]types.SearchQuerySQLOperation{
 								{
 									{Field: "xid", Operator: "=", Value: mockUserXID},
 								},
 							},
-							Joins: []pkg_types.JoinQuerySQLOperation{
+							Joins: []types.JoinQuerySQLOperation{
 								{
 									Relation: "Role",
-									Selects: []pkg_types.SelectJoinQuerySQLOperation{
+									Selects: []types.SelectJoinQuerySQLOperation{
 										{Field: "id"},
 										{Field: "slug"},
 									},
@@ -111,21 +111,21 @@ func TestEmployeeHandler_GetEmployees(t *testing.T) {
 			before: func() {
 				{
 					var (
-						arg1 *pkg_types.QuerySQL = &pkg_types.QuerySQL{
-							Selects: []pkg_types.SelectQuerySQLOperation{
+						arg1 *types.QuerySQL = &types.QuerySQL{
+							Selects: []types.SelectQuerySQLOperation{
 								{Field: "id"},
 								{Field: "name"},
 								{Field: "email"},
 							},
-							Searches: [][]pkg_types.SearchQuerySQLOperation{
+							Searches: [][]types.SearchQuerySQLOperation{
 								{
 									{Field: "xid", Operator: "=", Value: mockUserXID},
 								},
 							},
-							Joins: []pkg_types.JoinQuerySQLOperation{
+							Joins: []types.JoinQuerySQLOperation{
 								{
 									Relation: "Role",
-									Selects: []pkg_types.SelectJoinQuerySQLOperation{
+									Selects: []types.SelectJoinQuerySQLOperation{
 										{Field: "id"},
 										{Field: "slug"},
 									},
@@ -155,7 +155,7 @@ func TestEmployeeHandler_GetEmployees(t *testing.T) {
 					)
 					var (
 						result output.GetEmployeesDTO = nil
-						meta   *pkg_types.Meta        = nil
+						meta   *types.Meta            = nil
 						err    error                  = errors.New("unexpected errors")
 					)
 					mockEmployeeService.EXPECT().GetEmployees(arg1).Return(result, meta, err).Once()
@@ -171,7 +171,7 @@ func TestEmployeeHandler_GetEmployees(t *testing.T) {
 			},
 			output: result{
 				responseStatusCode: fiber.StatusOK,
-				responseBody: pkg_util_response.ResponseSuccess("get employees success", []*response.EmployeeResponse{
+				responseBody: internal_pkg_util_response.ResponseSuccess("get employees success", []*response.EmployeeResponse{
 					{
 						XID:       mockUUID,
 						Name:      "John",
@@ -182,7 +182,7 @@ func TestEmployeeHandler_GetEmployees(t *testing.T) {
 						CreatedAt: mockDateString,
 						UpdatedAt: mockDateString,
 					},
-				}, &pkg_types.Meta{
+				}, &types.Meta{
 					CurrentPage:      1,
 					CountDataPerPage: 1,
 					TotalData:        1,
@@ -192,21 +192,21 @@ func TestEmployeeHandler_GetEmployees(t *testing.T) {
 			before: func() {
 				{
 					var (
-						arg1 *pkg_types.QuerySQL = &pkg_types.QuerySQL{
-							Selects: []pkg_types.SelectQuerySQLOperation{
+						arg1 *types.QuerySQL = &types.QuerySQL{
+							Selects: []types.SelectQuerySQLOperation{
 								{Field: "id"},
 								{Field: "name"},
 								{Field: "email"},
 							},
-							Searches: [][]pkg_types.SearchQuerySQLOperation{
+							Searches: [][]types.SearchQuerySQLOperation{
 								{
 									{Field: "xid", Operator: "=", Value: mockUserXID},
 								},
 							},
-							Joins: []pkg_types.JoinQuerySQLOperation{
+							Joins: []types.JoinQuerySQLOperation{
 								{
 									Relation: "Role",
-									Selects: []pkg_types.SelectJoinQuerySQLOperation{
+									Selects: []types.SelectJoinQuerySQLOperation{
 										{Field: "id"},
 										{Field: "slug"},
 									},
@@ -247,7 +247,7 @@ func TestEmployeeHandler_GetEmployees(t *testing.T) {
 								UpdatedAt: mockDateTime,
 							},
 						}
-						meta *pkg_types.Meta = &pkg_types.Meta{
+						meta *types.Meta = &types.Meta{
 							CurrentPage:      1,
 							CountDataPerPage: 1,
 							TotalData:        1,

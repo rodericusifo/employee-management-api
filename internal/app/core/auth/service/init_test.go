@@ -4,13 +4,12 @@ import (
 	"time"
 
 	"github.com/rodericusifo/employee-management-api/internal/pkg/constant"
-
-	lib_mockery_mocks "github.com/rodericusifo/employee-management-api/lib/mocks"
+	"github.com/rodericusifo/employee-management-api/mocks"
 )
 
 var (
-	mockUserResource *lib_mockery_mocks.IUserResource
-	mockRoleResource *lib_mockery_mocks.IRoleResource
+	mockUserResource *mocks.IUserResource
+	mockRoleResource *mocks.IRoleResource
 	authService      IAuthService
 )
 
@@ -20,8 +19,8 @@ var (
 )
 
 func SetupTestAuthService() {
-	mockUserResource = new(lib_mockery_mocks.IUserResource)
-	mockRoleResource = new(lib_mockery_mocks.IRoleResource)
+	mockUserResource = new(mocks.IUserResource)
+	mockRoleResource = new(mocks.IRoleResource)
 
 	authService = InitAuthService(mockUserResource, mockRoleResource)
 

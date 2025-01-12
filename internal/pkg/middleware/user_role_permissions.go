@@ -7,9 +7,9 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"gorm.io/gorm"
 
+	"github.com/rodericusifo/employee-management-api/internal/pkg/types"
 	"github.com/rodericusifo/employee-management-api/internal/pkg/util/getter"
 	"github.com/rodericusifo/employee-management-api/internal/pkg/util/patcher"
-	"github.com/rodericusifo/employee-management-api/pkg/types"
 )
 
 func APIUserRolePermissions() fiber.Handler {

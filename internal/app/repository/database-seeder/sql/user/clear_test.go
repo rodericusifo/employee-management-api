@@ -118,7 +118,7 @@ func TestUserDatabaseSeederSQLRepository_Clear(t *testing.T) {
 				}
 				{
 					var (
-						arg1 = 1
+						arg1         = 1
 						rowsInstance = sqlmock.NewRows([]string{"id"})
 					)
 					rowsInstance.AddRow(1)
@@ -172,7 +172,7 @@ func TestUserDatabaseSeederSQLRepository_Clear(t *testing.T) {
 				}
 				{
 					var (
-						arg1 = 1
+						arg1         = 1
 						rowsInstance = sqlmock.NewRows([]string{"id"})
 					)
 					rowsInstance.AddRow(1)

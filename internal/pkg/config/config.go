@@ -6,6 +6,7 @@ import (
 	"fmt"
 
 	"github.com/redis/go-redis/v9"
+	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 	"gorm.io/driver/mysql"
 	"gorm.io/driver/postgres"
@@ -13,14 +14,12 @@ import (
 	"gorm.io/gorm/logger"
 	"gorm.io/gorm/schema"
 
+	"github.com/rodericusifo/employee-management-api/internal/pkg/constant"
 	"github.com/rodericusifo/employee-management-api/internal/pkg/migration"
 	"github.com/rodericusifo/employee-management-api/internal/pkg/types"
 	"github.com/rodericusifo/employee-management-api/internal/pkg/util/handler"
 
 	jwtware "github.com/gofiber/contrib/jwt"
-	log "github.com/sirupsen/logrus"
-
-	pkg_constant "github.com/rodericusifo/employee-management-api/pkg/constant"
 )
 
 var (
@@ -50,7 +49,7 @@ func ConfigureEnv() {
 	viper.SetConfigFile(path)
 
 	if err := viper.ReadInConfig(); err != nil {
-		log.WithFields(log.Fields{
+		logrus.WithFields(logrus.Fields{
 			"message": "read env fail",
 			"detail":  err,
 		}).Panic("[CONFIGURE ENV]")
@@ -58,19 +57,19 @@ func ConfigureEnv() {
 
 	var env EnvConfig
 	if err := viper.Unmarshal(&env); err != nil {
-		log.WithFields(log.Fields{
+		logrus.WithFields(logrus.Fields{
 			"message": "load env fail",
 			"detail":  err,
 		}).Panic("[CONFIGURE ENV]")
 	}
-	log.WithFields(log.Fields{
+	logrus.WithFields(logrus.Fields{
 		"message": "load env success",
 	}).Infoln("[CONFIGURE ENV]")
 
 	Env = env
 }
 
-func ConfigureDatabaseSQL(dialect pkg_constant.DialectDatabaseSQL) {
+func ConfigureDatabaseSQL(dialect constant.DialectDatabaseSQL) {
 	var (
 		dbSQLConfig DBSQLConfig
 		db          *gorm.DB
@@ -78,7 +77,7 @@ func ConfigureDatabaseSQL(dialect pkg_constant.DialectDatabaseSQL) {
 	)
 
 	switch dialect {
-	case pkg_constant.MYSQL:
+	case constant.MYSQL:
 		dbSQLConfig = DBSQLConfig{
 			Host:              Env.DatabaseMysqlHost,
 			Port:              Env.DatabaseMysqlPort,
@@ -90,7 +89,7 @@ func ConfigureDatabaseSQL(dialect pkg_constant.DialectDatabaseSQL) {
 			MaxOpenConnection: Env.DatabaseMysqlMaxOpenConnection,
 			DebugMode:         Env.DatabaseMysqlDebugMode,
 		}
-	case pkg_constant.POSTGRES:
+	case constant.POSTGRES:
 		dbSQLConfig = DBSQLConfig{
 			Host:              Env.DatabasePostgresHost,
 			Port:              Env.DatabasePostgresPort,
@@ -117,7 +116,7 @@ func ConfigureDatabaseSQL(dialect pkg_constant.DialectDatabaseSQL) {
 	}
 
 	switch dialect {
-	case pkg_constant.MYSQL:
+	case constant.MYSQL:
 		dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
 			dbSQLConfig.Username,
 			dbSQLConfig.Password,
@@ -126,12 +125,12 @@ func ConfigureDatabaseSQL(dialect pkg_constant.DialectDatabaseSQL) {
 			dbSQLConfig.Name)
 		db, err = gorm.Open(mysql.Open(dsn), cfg)
 		if err != nil {
-			log.WithFields(log.Fields{
+			logrus.WithFields(logrus.Fields{
 				"message": fmt.Sprintf("connect to database sql %s failed", dialect),
 				"detail":  err,
 			}).Panic("[CONFIGURE DATABASE SQL]")
 		}
-		log.WithFields(log.Fields{
+		logrus.WithFields(logrus.Fields{
 			"message": fmt.Sprintf("connect to database sql %s success", dialect),
 		}).Infoln("[CONFIGURE DATABASE SQL]")
 
@@ -140,12 +139,12 @@ func ConfigureDatabaseSQL(dialect pkg_constant.DialectDatabaseSQL) {
 
 		sqlDb, err := db.DB()
 		if err != nil {
-			log.WithFields(log.Fields{
+			logrus.WithFields(logrus.Fields{
 				"message": fmt.Sprintf("set up database sql %s failed", dialect),
 				"detail":  err,
 			}).Panic("[CONFIGURE DATABASE SQL]")
 		}
-		log.WithFields(log.Fields{
+		logrus.WithFields(logrus.Fields{
 			"message": fmt.Sprintf("set up database sql %s success", dialect),
 		}).Infoln("[CONFIGURE DATABASE SQL]")
 		sqlDb.SetConnMaxIdleTime(dbSQLConfig.ConnectionTimeout)
@@ -153,7 +152,7 @@ func ConfigureDatabaseSQL(dialect pkg_constant.DialectDatabaseSQL) {
 		sqlDb.SetMaxOpenConns(dbSQLConfig.MaxOpenConnection)
 
 		MysqlDBSQL = db
-	case pkg_constant.POSTGRES:
+	case constant.POSTGRES:
 		dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable TimeZone=%s",
 			dbSQLConfig.Host,
 			dbSQLConfig.Username,
@@ -163,12 +162,12 @@ func ConfigureDatabaseSQL(dialect pkg_constant.DialectDatabaseSQL) {
 			dbSQLConfig.TimeZone)
 		db, err = gorm.Open(postgres.Open(dsn), cfg)
 		if err != nil {
-			log.WithFields(log.Fields{
+			logrus.WithFields(logrus.Fields{
 				"message": fmt.Sprintf("connect to database sql %s failed", dialect),
 				"detail":  err,
 			}).Panic("[CONFIGURE DATABASE SQL]")
 		}
-		log.WithFields(log.Fields{
+		logrus.WithFields(logrus.Fields{
 			"message": fmt.Sprintf("connect to database sql %s success", dialect),
 		}).Infoln("[CONFIGURE DATABASE SQL]")
 
@@ -177,12 +176,12 @@ func ConfigureDatabaseSQL(dialect pkg_constant.DialectDatabaseSQL) {
 
 		sqlDb, err := db.DB()
 		if err != nil {
-			log.WithFields(log.Fields{
+			logrus.WithFields(logrus.Fields{
 				"message": fmt.Sprintf("set up database sql %s failed", dialect),
 				"detail":  err,
 			}).Panic("[CONFIGURE DATABASE SQL]")
 		}
-		log.WithFields(log.Fields{
+		logrus.WithFields(logrus.Fields{
 			"message": fmt.Sprintf("set up database sql %s success", dialect),
 		}).Infoln("[CONFIGURE DATABASE SQL]")
 		sqlDb.SetConnMaxIdleTime(dbSQLConfig.ConnectionTimeout)
@@ -193,9 +192,9 @@ func ConfigureDatabaseSQL(dialect pkg_constant.DialectDatabaseSQL) {
 	}
 }
 
-func ConfigureDatabaseCache(dialect pkg_constant.DialectDatabaseCache) {
+func ConfigureDatabaseCache(dialect constant.DialectDatabaseCache) {
 	switch dialect {
-	case pkg_constant.REDIS:
+	case constant.REDIS:
 		client := redis.NewClient(&redis.Options{
 			Addr:     Env.DatabaseCacheRedisAddress,
 			Password: Env.DatabaseCacheRedisPassword,
@@ -204,12 +203,12 @@ func ConfigureDatabaseCache(dialect pkg_constant.DialectDatabaseCache) {
 		})
 		ctx := context.Background()
 		if err := client.Ping(ctx).Err(); err != nil {
-			log.WithFields(log.Fields{
+			logrus.WithFields(logrus.Fields{
 				"message": fmt.Sprintf("connect to database cache %s failed", dialect),
 				"detail":  err,
 			}).Panic("[CONFIGURE DATABASE CACHE]")
 		}
-		log.WithFields(log.Fields{
+		logrus.WithFields(logrus.Fields{
 			"message": fmt.Sprintf("connect to database cache %s success", dialect),
 		}).Infoln("[CONFIGURE DATABASE CACHE]")
 		RedisDBCache = client
@@ -228,13 +227,13 @@ func ConfigureAuth() {
 }
 
 func ConfigureLog() {
-	log.SetFormatter(&log.TextFormatter{
+	logrus.SetFormatter(&logrus.TextFormatter{
 		FullTimestamp:          true,
 		DisableLevelTruncation: true,
 		PadLevelText:           true,
 		TimestampFormat:        "2006-01-02 15:04:05 MST",
 	})
-	log.WithFields(log.Fields{
+	logrus.WithFields(logrus.Fields{
 		"message": "setting log success",
 	}).Infoln("[CONFIGURE LOG]")
 }

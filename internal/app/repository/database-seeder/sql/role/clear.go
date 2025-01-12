@@ -1,14 +1,12 @@
 package role
 
 import (
+	"github.com/sirupsen/logrus"
 	"gorm.io/gorm"
 
 	"github.com/rodericusifo/employee-management-api/internal/app/model/database/sql"
-
-	log "github.com/sirupsen/logrus"
-
-	pkg_types "github.com/rodericusifo/employee-management-api/pkg/types"
-	pkg_util_builder "github.com/rodericusifo/employee-management-api/pkg/util/builder"
+	"github.com/rodericusifo/employee-management-api/internal/pkg/types"
+	"github.com/rodericusifo/employee-management-api/internal/pkg/util/builder"
 )
 
 func (r *RoleDatabaseSeederSQLRepository) Clear(db *gorm.DB) error {
@@ -21,18 +19,18 @@ func (r *RoleDatabaseSeederSQLRepository) Clear(db *gorm.DB) error {
 
 	q := db
 
-	query := &pkg_types.QuerySQL{
-		Selects: []pkg_types.SelectQuerySQLOperation{
+	query := &types.QuerySQL{
+		Selects: []types.SelectQuerySQLOperation{
 			{Field: "id"},
 		},
-		Searches: [][]pkg_types.SearchQuerySQLOperation{
+		Searches: [][]types.SearchQuerySQLOperation{
 			{
 				{Field: "slug", Operator: "IN", Value: roleSeedSlugs},
 			},
 		},
 	}
 
-	q = pkg_util_builder.BuildQuerySQL(r.model.TableName(), q, query, r.dialect)
+	q = builder.BuildQuerySQL(r.model.TableName(), q, query, r.dialect)
 
 	if err := q.Table(r.model.TableName()).Find(&roles).Error; err != nil {
 		return err
@@ -40,7 +38,7 @@ func (r *RoleDatabaseSeederSQLRepository) Clear(db *gorm.DB) error {
 
 	for _, role := range roles {
 		if err := db.Table(r.model.TableName()).Delete(role).Error; err != nil {
-			log.WithFields(log.Fields{
+			logrus.WithFields(logrus.Fields{
 				"message": "delete role fail",
 				"detail":  err,
 			}).Errorln("[ROLE DATABASE SEEDER SQL REPOSITORY] [CLEAR]")

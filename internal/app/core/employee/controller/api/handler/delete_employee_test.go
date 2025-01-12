@@ -15,9 +15,8 @@ import (
 	"github.com/rodericusifo/employee-management-api/internal/app/core/employee/controller/api/request"
 	"github.com/rodericusifo/employee-management-api/internal/app/core/employee/service/dto/input"
 	"github.com/rodericusifo/employee-management-api/internal/app/model/database/sql"
-
-	pkg_types "github.com/rodericusifo/employee-management-api/pkg/types"
-	pkg_util_response "github.com/rodericusifo/employee-management-api/pkg/util/response"
+	"github.com/rodericusifo/employee-management-api/internal/pkg/types"
+	"github.com/rodericusifo/employee-management-api/internal/pkg/util/response"
 )
 
 func init() {
@@ -56,21 +55,21 @@ func TestEmployeeHandler_DeleteEmployee(t *testing.T) {
 			before: func() {
 				{
 					var (
-						arg1 *pkg_types.QuerySQL = &pkg_types.QuerySQL{
-							Selects: []pkg_types.SelectQuerySQLOperation{
+						arg1 *types.QuerySQL = &types.QuerySQL{
+							Selects: []types.SelectQuerySQLOperation{
 								{Field: "id"},
 								{Field: "name"},
 								{Field: "email"},
 							},
-							Searches: [][]pkg_types.SearchQuerySQLOperation{
+							Searches: [][]types.SearchQuerySQLOperation{
 								{
 									{Field: "xid", Operator: "=", Value: mockUserXID},
 								},
 							},
-							Joins: []pkg_types.JoinQuerySQLOperation{
+							Joins: []types.JoinQuerySQLOperation{
 								{
 									Relation: "Role",
-									Selects: []pkg_types.SelectJoinQuerySQLOperation{
+									Selects: []types.SelectJoinQuerySQLOperation{
 										{Field: "id"},
 										{Field: "slug"},
 									},
@@ -109,21 +108,21 @@ func TestEmployeeHandler_DeleteEmployee(t *testing.T) {
 			before: func() {
 				{
 					var (
-						arg1 *pkg_types.QuerySQL = &pkg_types.QuerySQL{
-							Selects: []pkg_types.SelectQuerySQLOperation{
+						arg1 *types.QuerySQL = &types.QuerySQL{
+							Selects: []types.SelectQuerySQLOperation{
 								{Field: "id"},
 								{Field: "name"},
 								{Field: "email"},
 							},
-							Searches: [][]pkg_types.SearchQuerySQLOperation{
+							Searches: [][]types.SearchQuerySQLOperation{
 								{
 									{Field: "xid", Operator: "=", Value: mockUserXID},
 								},
 							},
-							Joins: []pkg_types.JoinQuerySQLOperation{
+							Joins: []types.JoinQuerySQLOperation{
 								{
 									Relation: "Role",
-									Selects: []pkg_types.SelectJoinQuerySQLOperation{
+									Selects: []types.SelectJoinQuerySQLOperation{
 										{Field: "id"},
 										{Field: "slug"},
 									},
@@ -170,26 +169,26 @@ func TestEmployeeHandler_DeleteEmployee(t *testing.T) {
 			},
 			output: result{
 				responseStatusCode: fiber.StatusOK,
-				responseBody:       pkg_util_response.ResponseSuccess[any]("delete employee success", nil, nil),
+				responseBody:       response.ResponseSuccess[any]("delete employee success", nil, nil),
 			},
 			before: func() {
 				{
 					var (
-						arg1 *pkg_types.QuerySQL = &pkg_types.QuerySQL{
-							Selects: []pkg_types.SelectQuerySQLOperation{
+						arg1 *types.QuerySQL = &types.QuerySQL{
+							Selects: []types.SelectQuerySQLOperation{
 								{Field: "id"},
 								{Field: "name"},
 								{Field: "email"},
 							},
-							Searches: [][]pkg_types.SearchQuerySQLOperation{
+							Searches: [][]types.SearchQuerySQLOperation{
 								{
 									{Field: "xid", Operator: "=", Value: mockUserXID},
 								},
 							},
-							Joins: []pkg_types.JoinQuerySQLOperation{
+							Joins: []types.JoinQuerySQLOperation{
 								{
 									Relation: "Role",
-									Selects: []pkg_types.SelectJoinQuerySQLOperation{
+									Selects: []types.SelectJoinQuerySQLOperation{
 										{Field: "id"},
 										{Field: "slug"},
 									},

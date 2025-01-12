@@ -8,7 +8,7 @@ import (
 	"github.com/rodericusifo/employee-management-api/internal/app/core/auth/service/dto/input"
 	"github.com/rodericusifo/employee-management-api/internal/pkg/util/validator"
 
-	pkg_util_response "github.com/rodericusifo/employee-management-api/pkg/util/response"
+	internal_pkg_util_response "github.com/rodericusifo/employee-management-api/internal/pkg/util/response"
 )
 
 func (h *AuthHandler) LoginAuth(ctx *fiber.Ctx) error {
@@ -29,5 +29,5 @@ func (h *AuthHandler) LoginAuth(ctx *fiber.Ctx) error {
 		Token: authLoginDtoRes.Token,
 	}
 
-	return ctx.Status(fiber.StatusOK).JSON(pkg_util_response.ResponseSuccess("auth login success", loginAuthRes, nil))
+	return ctx.Status(fiber.StatusOK).JSON(internal_pkg_util_response.ResponseSuccess("auth login success", loginAuthRes, nil))
 }

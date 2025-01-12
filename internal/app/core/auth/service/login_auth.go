@@ -8,13 +8,11 @@ import (
 	"github.com/rodericusifo/employee-management-api/internal/app/core/auth/service/dto/output"
 	"github.com/rodericusifo/employee-management-api/internal/pkg/types"
 	"github.com/rodericusifo/employee-management-api/internal/pkg/util/patcher"
-
-	pkg_types "github.com/rodericusifo/employee-management-api/pkg/types"
 )
 
 func (s *AuthService) LoginAuth(payload *input.LoginAuthDTO) (*output.LoginAuthDTO, error) {
-	userModelRes, err := s.UserResource.FirstUser(&pkg_types.QuerySQL{
-		Searches: [][]pkg_types.SearchQuerySQLOperation{
+	userModelRes, err := s.UserResource.FirstUser(&types.QuerySQL{
+		Searches: [][]types.SearchQuerySQLOperation{
 			{
 				{Field: "email", Operator: "=", Value: payload.Email},
 			},

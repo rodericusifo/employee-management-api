@@ -4,21 +4,20 @@ import (
 	"fmt"
 
 	"github.com/DATA-DOG/go-sqlmock"
+	"github.com/sirupsen/logrus"
 	"gorm.io/driver/mysql"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 
-	log "github.com/sirupsen/logrus"
-
-	pkg_constant "github.com/rodericusifo/employee-management-api/pkg/constant"
+	"github.com/rodericusifo/employee-management-api/internal/pkg/constant"
 )
 
-func MockDatabaseSQLConnection(dialect pkg_constant.DialectDatabaseSQL) (*gorm.DB, sqlmock.Sqlmock) {
+func MockDatabaseSQLConnection(dialect constant.DialectDatabaseSQL) (*gorm.DB, sqlmock.Sqlmock) {
 	sqlDB, mock, err := sqlmock.New(
 		sqlmock.QueryMatcherOption(sqlmock.QueryMatcherRegexp),
 	)
 	if err != nil {
-		log.WithFields(log.Fields{
+		logrus.WithFields(logrus.Fields{
 			"message": fmt.Sprintf("connect to mock database sql %s failed", dialect),
 			"detail":  err,
 		}).Panic("[MOCK CONNECTION DATABASE SQL]")
@@ -26,22 +25,22 @@ func MockDatabaseSQLConnection(dialect pkg_constant.DialectDatabaseSQL) (*gorm.D
 
 	var dialector gorm.Dialector
 	switch dialect {
-	case pkg_constant.POSTGRES:
+	case constant.POSTGRES:
 		dialector = postgres.New(postgres.Config{
 			Conn:       sqlDB,
-			DriverName: string(pkg_constant.POSTGRES),
+			DriverName: string(constant.POSTGRES),
 		})
-	case pkg_constant.MYSQL:
+	case constant.MYSQL:
 		dialector = mysql.New(mysql.Config{
 			Conn:                      sqlDB,
-			DriverName:                string(pkg_constant.MYSQL),
+			DriverName:                string(constant.MYSQL),
 			SkipInitializeWithVersion: true,
 		})
 	}
 
 	db, err := gorm.Open(dialector, &gorm.Config{})
 	if err != nil {
-		log.WithFields(log.Fields{
+		logrus.WithFields(logrus.Fields{
 			"message": fmt.Sprintf("connect to mock database sql %s failed", dialect),
 			"detail":  err,
 		}).Panic("[MOCK CONNECTION DATABASE SQL]")

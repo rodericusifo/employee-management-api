@@ -4,12 +4,11 @@ import (
 	"time"
 
 	"github.com/rodericusifo/employee-management-api/internal/pkg/constant"
-
-	lib_mockery_mocks "github.com/rodericusifo/employee-management-api/lib/mocks"
+	"github.com/rodericusifo/employee-management-api/mocks"
 )
 
 var (
-	mockRoleDatabaseSQLRepository *lib_mockery_mocks.IRoleDatabaseSQLRepository
+	mockRoleDatabaseSQLRepository *mocks.IRoleDatabaseSQLRepository
 	roleResource                  IRoleResource
 )
 
@@ -19,7 +18,7 @@ var (
 )
 
 func SetupTestRoleResource() {
-	mockRoleDatabaseSQLRepository = new(lib_mockery_mocks.IRoleDatabaseSQLRepository)
+	mockRoleDatabaseSQLRepository = new(mocks.IRoleDatabaseSQLRepository)
 
 	roleResource = InitRoleResource(mockRoleDatabaseSQLRepository)
 

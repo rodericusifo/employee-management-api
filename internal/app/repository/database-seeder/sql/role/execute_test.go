@@ -13,12 +13,10 @@ import (
 	"github.com/rodericusifo/employee-management-api/internal/pkg/config"
 	"github.com/rodericusifo/employee-management-api/internal/pkg/constant"
 	"github.com/rodericusifo/employee-management-api/internal/pkg/util/mocker"
-
-	pkg_constant "github.com/rodericusifo/employee-management-api/pkg/constant"
 )
 
 func SetupTestExecuteMysqlRoleDatabaseSeederSQLRepository() {
-	dialect := pkg_constant.MYSQL
+	dialect := constant.MYSQL
 	db, mock := mocker.MockDatabaseSQLConnection(dialect)
 
 	mockQuery = mock
@@ -66,7 +64,7 @@ func TestExecuteMysqlRoleDatabaseSeederRepository(t *testing.T) {
 				}
 				{
 					var (
-						arg1 ="super_admin"
+						arg1 = "super_admin"
 					)
 					mockQuery.ExpectQuery(
 						regexp.QuoteMeta(
@@ -95,7 +93,7 @@ func TestExecuteMysqlRoleDatabaseSeederRepository(t *testing.T) {
 				}
 				{
 					var (
-						arg1 ="super_admin"
+						arg1         = "super_admin"
 						rowsInstance = sqlmock.NewRows([]string{"id"})
 					)
 					rowsInstance.AddRow(1)
@@ -128,8 +126,8 @@ func TestExecuteMysqlRoleDatabaseSeederRepository(t *testing.T) {
 				}
 				{
 					var (
-						arg1 = "77ce5f5f-2db6-4fff-b6e2-87464e0a9608"
-						arg2 = "super_admin"
+						arg1         = "77ce5f5f-2db6-4fff-b6e2-87464e0a9608"
+						arg2         = "super_admin"
 						rowsInstance = sqlmock.NewRows([]string{"id"})
 					)
 					rowsInstance.AddRow(1)
@@ -182,7 +180,7 @@ func TestExecuteMysqlRoleDatabaseSeederRepository(t *testing.T) {
 				}
 				{
 					var (
-						arg1 ="super_admin"
+						arg1         = "super_admin"
 						rowsInstance = sqlmock.NewRows([]string{"id"})
 					)
 					rowsInstance.AddRow(1)
@@ -215,8 +213,8 @@ func TestExecuteMysqlRoleDatabaseSeederRepository(t *testing.T) {
 				}
 				{
 					var (
-						arg1 = "77ce5f5f-2db6-4fff-b6e2-87464e0a9608"
-						arg2 = "super_admin"
+						arg1         = "77ce5f5f-2db6-4fff-b6e2-87464e0a9608"
+						arg2         = "super_admin"
 						rowsInstance = sqlmock.NewRows([]string{"id"})
 					)
 					rowsInstance.AddRow(1)

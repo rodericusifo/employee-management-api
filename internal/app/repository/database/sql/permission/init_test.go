@@ -7,13 +7,11 @@ import (
 
 	"github.com/rodericusifo/employee-management-api/internal/pkg/constant"
 	"github.com/rodericusifo/employee-management-api/internal/pkg/util/mocker"
-
-	pkg_constant "github.com/rodericusifo/employee-management-api/pkg/constant"
 )
 
 var (
 	permissionDatabaseSQLRepository IPermissionDatabaseSQLRepository
-	mockQuery                 sqlmock.Sqlmock
+	mockQuery                       sqlmock.Sqlmock
 )
 
 var (
@@ -22,7 +20,7 @@ var (
 )
 
 func SetupTestMysqlPermissionDatabaseSQLRepository() {
-	dialect := pkg_constant.MYSQL
+	dialect := constant.MYSQL
 	db, mock := mocker.MockDatabaseSQLConnection(dialect)
 
 	permissionDatabaseSQLRepository = InitMysqlPermissionDatabaseSQLRepository(db)

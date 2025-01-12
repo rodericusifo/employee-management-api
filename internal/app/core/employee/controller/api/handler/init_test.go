@@ -9,21 +9,21 @@ import (
 	"github.com/rodericusifo/employee-management-api/internal/pkg/types"
 	"github.com/rodericusifo/employee-management-api/internal/pkg/util/handler"
 	"github.com/rodericusifo/employee-management-api/internal/pkg/util/patcher"
+	"github.com/rodericusifo/employee-management-api/mocks"
 
 	jwtware "github.com/gofiber/contrib/jwt"
 
 	internal_app_core_permission_resource "github.com/rodericusifo/employee-management-api/internal/app/core/permission/resource"
 	internal_app_core_role_permission_resource "github.com/rodericusifo/employee-management-api/internal/app/core/role_permission/resource"
 	internal_app_core_user_resource "github.com/rodericusifo/employee-management-api/internal/app/core/user/resource"
-	lib_mockery_mocks "github.com/rodericusifo/employee-management-api/lib/mocks"
 )
 
 var (
 	mockApp                    *fiber.App
-	mockEmployeeService        *lib_mockery_mocks.IEmployeeService
-	mockUserResource           *lib_mockery_mocks.IUserResource
-	mockPermissionResource     *lib_mockery_mocks.IPermissionResource
-	mockRolePermissionResource *lib_mockery_mocks.IRolePermissionResource
+	mockEmployeeService        *mocks.IEmployeeService
+	mockUserResource           *mocks.IUserResource
+	mockPermissionResource     *mocks.IPermissionResource
+	mockRolePermissionResource *mocks.IRolePermissionResource
 	employeeHandler            *EmployeeHandler
 )
 
@@ -38,22 +38,22 @@ func SetupTestEmployeeHandler() {
 		ErrorHandler: handler.APIError,
 	})
 
-	mockUserResource = new(lib_mockery_mocks.IUserResource)
+	mockUserResource = new(mocks.IUserResource)
 	patcher.UserResource = func() internal_app_core_user_resource.IUserResource {
 		return mockUserResource
 	}
 
-	mockPermissionResource = new(lib_mockery_mocks.IPermissionResource)
+	mockPermissionResource = new(mocks.IPermissionResource)
 	patcher.PermissionResource = func() internal_app_core_permission_resource.IPermissionResource {
 		return mockPermissionResource
 	}
 
-	mockRolePermissionResource = new(lib_mockery_mocks.IRolePermissionResource)
+	mockRolePermissionResource = new(mocks.IRolePermissionResource)
 	patcher.RolePermissionResource = func() internal_app_core_role_permission_resource.IRolePermissionResource {
 		return mockRolePermissionResource
 	}
 
-	mockEmployeeService = new(lib_mockery_mocks.IEmployeeService)
+	mockEmployeeService = new(mocks.IEmployeeService)
 
 	employee := mockApp.Group("/employees")
 	employee.Use(jwtware.New(jwtware.Config{

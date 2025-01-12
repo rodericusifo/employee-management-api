@@ -5,25 +5,24 @@ import (
 
 	"github.com/rodericusifo/employee-management-api/internal/app/model/database/sql"
 	"github.com/rodericusifo/employee-management-api/internal/pkg/config"
-
-	pkg_constant "github.com/rodericusifo/employee-management-api/pkg/constant"
-	pkg_types "github.com/rodericusifo/employee-management-api/pkg/types"
+	"github.com/rodericusifo/employee-management-api/internal/pkg/constant"
+	"github.com/rodericusifo/employee-management-api/internal/pkg/types"
 )
 
 type IPermissionDatabaseSQLRepository interface {
-	FirstPermission(query *pkg_types.QuerySQL) (*sql.Permission, error)
+	FirstPermission(query *types.QuerySQL) (*sql.Permission, error)
 }
 
 type PermissionDatabaseSQLRepository struct {
 	db      *gorm.DB
 	model   sql.Permission
-	dialect pkg_constant.DialectDatabaseSQL
+	dialect constant.DialectDatabaseSQL
 }
 
 func InitMysqlPermissionDatabaseSQLRepository(db config.MysqlDatabaseSQLConnection) IPermissionDatabaseSQLRepository {
 	return &PermissionDatabaseSQLRepository{
 		db:      db,
 		model:   sql.Permission{},
-		dialect: pkg_constant.MYSQL,
+		dialect: constant.MYSQL,
 	}
 }

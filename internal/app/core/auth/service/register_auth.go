@@ -6,19 +6,18 @@ import (
 
 	"github.com/rodericusifo/employee-management-api/internal/app/core/auth/service/dto/input"
 	"github.com/rodericusifo/employee-management-api/internal/app/model/database/sql"
+	"github.com/rodericusifo/employee-management-api/internal/pkg/types"
 	"github.com/rodericusifo/employee-management-api/internal/pkg/util/patcher"
-
-	pkg_types "github.com/rodericusifo/employee-management-api/pkg/types"
 )
 
 func (s *AuthService) RegisterAuth(payload *input.RegisterAuthDTO) error {
 	payload.RoleSlug = "super_admin"
 
-	userModelRes, err := s.UserResource.FirstUser(&pkg_types.QuerySQL{
-		Selects: []pkg_types.SelectQuerySQLOperation{
+	userModelRes, err := s.UserResource.FirstUser(&types.QuerySQL{
+		Selects: []types.SelectQuerySQLOperation{
 			{Field: "id"},
 		},
-		Searches: [][]pkg_types.SearchQuerySQLOperation{
+		Searches: [][]types.SearchQuerySQLOperation{
 			{
 				{Field: "email", Operator: "=", Value: payload.Email},
 			},
@@ -31,11 +30,11 @@ func (s *AuthService) RegisterAuth(payload *input.RegisterAuthDTO) error {
 		return fiber.NewError(fiber.StatusConflict, "user already registered")
 	}
 
-	roleModelRes, err := s.RoleResource.FirstRole(&pkg_types.QuerySQL{
-		Selects: []pkg_types.SelectQuerySQLOperation{
+	roleModelRes, err := s.RoleResource.FirstRole(&types.QuerySQL{
+		Selects: []types.SelectQuerySQLOperation{
 			{Field: "id"},
 		},
-		Searches: [][]pkg_types.SearchQuerySQLOperation{
+		Searches: [][]types.SearchQuerySQLOperation{
 			{
 				{Field: "slug", Operator: "=", Value: payload.RoleSlug},
 			},

@@ -13,8 +13,6 @@ import (
 	"github.com/rodericusifo/employee-management-api/internal/app/model/database/sql"
 	"github.com/rodericusifo/employee-management-api/internal/pkg/types"
 	"github.com/rodericusifo/employee-management-api/internal/pkg/util/patcher"
-
-	pkg_types "github.com/rodericusifo/employee-management-api/pkg/types"
 )
 
 func init() {
@@ -54,8 +52,8 @@ func TestAuthService_LoginAuth(t *testing.T) {
 			before: func() {
 				{
 					var (
-						arg1 *pkg_types.QuerySQL = &pkg_types.QuerySQL{
-							Searches: [][]pkg_types.SearchQuerySQLOperation{
+						arg1 *types.QuerySQL = &types.QuerySQL{
+							Searches: [][]types.SearchQuerySQLOperation{
 								{
 									{Field: "email", Operator: "=", Value: "someone@mail.com"},
 								},
@@ -86,8 +84,8 @@ func TestAuthService_LoginAuth(t *testing.T) {
 			before: func() {
 				{
 					var (
-						arg1 *pkg_types.QuerySQL = &pkg_types.QuerySQL{
-							Searches: [][]pkg_types.SearchQuerySQLOperation{
+						arg1 *types.QuerySQL = &types.QuerySQL{
+							Searches: [][]types.SearchQuerySQLOperation{
 								{
 									{Field: "email", Operator: "=", Value: "someone@mail.com"},
 								},
@@ -118,8 +116,8 @@ func TestAuthService_LoginAuth(t *testing.T) {
 			before: func() {
 				{
 					var (
-						arg1 *pkg_types.QuerySQL = &pkg_types.QuerySQL{
-							Searches: [][]pkg_types.SearchQuerySQLOperation{
+						arg1 *types.QuerySQL = &types.QuerySQL{
+							Searches: [][]types.SearchQuerySQLOperation{
 								{
 									{Field: "email", Operator: "=", Value: "someone@mail.com"},
 								},
@@ -164,8 +162,8 @@ func TestAuthService_LoginAuth(t *testing.T) {
 				}
 				{
 					var (
-						arg1 *pkg_types.QuerySQL = &pkg_types.QuerySQL{
-							Searches: [][]pkg_types.SearchQuerySQLOperation{
+						arg1 *types.QuerySQL = &types.QuerySQL{
+							Searches: [][]types.SearchQuerySQLOperation{
 								{
 									{Field: "email", Operator: "=", Value: "someone@mail.com"},
 								},
@@ -212,8 +210,8 @@ func TestAuthService_LoginAuth(t *testing.T) {
 				}
 				{
 					var (
-						arg1 *pkg_types.QuerySQL = &pkg_types.QuerySQL{
-							Searches: [][]pkg_types.SearchQuerySQLOperation{
+						arg1 *types.QuerySQL = &types.QuerySQL{
+							Searches: [][]types.SearchQuerySQLOperation{
 								{
 									{Field: "email", Operator: "=", Value: "someone@mail.com"},
 								},

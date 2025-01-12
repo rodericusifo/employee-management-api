@@ -5,16 +5,15 @@ import (
 	"gorm.io/gorm"
 
 	"github.com/rodericusifo/employee-management-api/internal/app/core/employee/service/dto/input"
-
-	pkg_types "github.com/rodericusifo/employee-management-api/pkg/types"
+	"github.com/rodericusifo/employee-management-api/internal/pkg/types"
 )
 
 func (s *EmployeeService) DeleteEmployee(payload *input.DeleteEmployeeDTO) error {
-	employeeModelRes, err := s.EmployeeResource.FirstEmployee(&pkg_types.QuerySQL{
-		Selects: []pkg_types.SelectQuerySQLOperation{
+	employeeModelRes, err := s.EmployeeResource.FirstEmployee(&types.QuerySQL{
+		Selects: []types.SelectQuerySQLOperation{
 			{Field: "id"},
 		},
-		Searches: [][]pkg_types.SearchQuerySQLOperation{
+		Searches: [][]types.SearchQuerySQLOperation{
 			{
 				{Field: "xid", Operator: "=", Value: payload.XID},
 				{Field: "user_id", Operator: "=", Value: payload.UserID},

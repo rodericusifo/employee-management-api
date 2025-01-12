@@ -82,14 +82,14 @@ Note for APP
     type SomethingDatabaseSQLRepository struct {
       db        *gorm.DB
       model     sql.Something
-      dialect   pkg_constant.DialectDatabaseSQL
+      dialect   constant.DialectDatabaseSQL
     }
 
     func InitMysqlSomethingDatabaseSQLRepository(db config.MysqlDatabaseSQLConnection) ISomethingDatabaseSQLRepository {
       return &SomethingDatabaseSQLRepository{
         db:        db,
         model:     sql.Something{},
-        dialect:   pkg_constant.MYSQL,
+        dialect:   constant.MYSQL,
       }
     }
     ```

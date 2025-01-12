@@ -10,9 +10,8 @@ import (
 
 	"github.com/rodericusifo/employee-management-api/internal/app/core/auth/service/dto/input"
 	"github.com/rodericusifo/employee-management-api/internal/app/model/database/sql"
+	"github.com/rodericusifo/employee-management-api/internal/pkg/types"
 	"github.com/rodericusifo/employee-management-api/internal/pkg/util/patcher"
-
-	pkg_types "github.com/rodericusifo/employee-management-api/pkg/types"
 )
 
 func init() {
@@ -52,11 +51,11 @@ func TestAuthService_RegisterAuth(t *testing.T) {
 			before: func() {
 				{
 					var (
-						arg1 *pkg_types.QuerySQL = &pkg_types.QuerySQL{
-							Selects: []pkg_types.SelectQuerySQLOperation{
+						arg1 *types.QuerySQL = &types.QuerySQL{
+							Selects: []types.SelectQuerySQLOperation{
 								{Field: "id"},
 							},
-							Searches: [][]pkg_types.SearchQuerySQLOperation{
+							Searches: [][]types.SearchQuerySQLOperation{
 								{
 									{Field: "email", Operator: "=", Value: "Ifo@gmail.com"},
 								},
@@ -88,11 +87,11 @@ func TestAuthService_RegisterAuth(t *testing.T) {
 			before: func() {
 				{
 					var (
-						arg1 *pkg_types.QuerySQL = &pkg_types.QuerySQL{
-							Selects: []pkg_types.SelectQuerySQLOperation{
+						arg1 *types.QuerySQL = &types.QuerySQL{
+							Selects: []types.SelectQuerySQLOperation{
 								{Field: "id"},
 							},
-							Searches: [][]pkg_types.SearchQuerySQLOperation{
+							Searches: [][]types.SearchQuerySQLOperation{
 								{
 									{Field: "email", Operator: "=", Value: "Ifo@gmail.com"},
 								},
@@ -126,11 +125,11 @@ func TestAuthService_RegisterAuth(t *testing.T) {
 			before: func() {
 				{
 					var (
-						arg1 *pkg_types.QuerySQL = &pkg_types.QuerySQL{
-							Selects: []pkg_types.SelectQuerySQLOperation{
+						arg1 *types.QuerySQL = &types.QuerySQL{
+							Selects: []types.SelectQuerySQLOperation{
 								{Field: "id"},
 							},
-							Searches: [][]pkg_types.SearchQuerySQLOperation{
+							Searches: [][]types.SearchQuerySQLOperation{
 								{
 									{Field: "email", Operator: "=", Value: "Ifo@gmail.com"},
 								},
@@ -145,11 +144,11 @@ func TestAuthService_RegisterAuth(t *testing.T) {
 				}
 				{
 					var (
-						arg1 *pkg_types.QuerySQL = &pkg_types.QuerySQL{
-							Selects: []pkg_types.SelectQuerySQLOperation{
+						arg1 *types.QuerySQL = &types.QuerySQL{
+							Selects: []types.SelectQuerySQLOperation{
 								{Field: "id"},
 							},
-							Searches: [][]pkg_types.SearchQuerySQLOperation{
+							Searches: [][]types.SearchQuerySQLOperation{
 								{
 									{Field: "slug", Operator: "=", Value: "super_admin"},
 								},
@@ -181,11 +180,11 @@ func TestAuthService_RegisterAuth(t *testing.T) {
 			before: func() {
 				{
 					var (
-						arg1 *pkg_types.QuerySQL = &pkg_types.QuerySQL{
-							Selects: []pkg_types.SelectQuerySQLOperation{
+						arg1 *types.QuerySQL = &types.QuerySQL{
+							Selects: []types.SelectQuerySQLOperation{
 								{Field: "id"},
 							},
-							Searches: [][]pkg_types.SearchQuerySQLOperation{
+							Searches: [][]types.SearchQuerySQLOperation{
 								{
 									{Field: "email", Operator: "=", Value: "Ifo@gmail.com"},
 								},
@@ -200,11 +199,11 @@ func TestAuthService_RegisterAuth(t *testing.T) {
 				}
 				{
 					var (
-						arg1 *pkg_types.QuerySQL = &pkg_types.QuerySQL{
-							Selects: []pkg_types.SelectQuerySQLOperation{
+						arg1 *types.QuerySQL = &types.QuerySQL{
+							Selects: []types.SelectQuerySQLOperation{
 								{Field: "id"},
 							},
-							Searches: [][]pkg_types.SearchQuerySQLOperation{
+							Searches: [][]types.SearchQuerySQLOperation{
 								{
 									{Field: "slug", Operator: "=", Value: "super_admin"},
 								},
@@ -241,11 +240,11 @@ func TestAuthService_RegisterAuth(t *testing.T) {
 				}
 				{
 					var (
-						arg1 *pkg_types.QuerySQL = &pkg_types.QuerySQL{
-							Selects: []pkg_types.SelectQuerySQLOperation{
+						arg1 *types.QuerySQL = &types.QuerySQL{
+							Selects: []types.SelectQuerySQLOperation{
 								{Field: "id"},
 							},
-							Searches: [][]pkg_types.SearchQuerySQLOperation{
+							Searches: [][]types.SearchQuerySQLOperation{
 								{
 									{Field: "email", Operator: "=", Value: "Ifo@gmail.com"},
 								},
@@ -260,11 +259,11 @@ func TestAuthService_RegisterAuth(t *testing.T) {
 				}
 				{
 					var (
-						arg1 *pkg_types.QuerySQL = &pkg_types.QuerySQL{
-							Selects: []pkg_types.SelectQuerySQLOperation{
+						arg1 *types.QuerySQL = &types.QuerySQL{
+							Selects: []types.SelectQuerySQLOperation{
 								{Field: "id"},
 							},
-							Searches: [][]pkg_types.SearchQuerySQLOperation{
+							Searches: [][]types.SearchQuerySQLOperation{
 								{
 									{Field: "slug", Operator: "=", Value: "super_admin"},
 								},
@@ -275,7 +274,7 @@ func TestAuthService_RegisterAuth(t *testing.T) {
 						result *sql.Role = &sql.Role{
 							ID: 2,
 						}
-						err    error     = nil
+						err error = nil
 					)
 					mockRoleResource.EXPECT().FirstRole(arg1).Return(result, err).Once()
 				}
@@ -303,11 +302,11 @@ func TestAuthService_RegisterAuth(t *testing.T) {
 				}
 				{
 					var (
-						arg1 *pkg_types.QuerySQL = &pkg_types.QuerySQL{
-							Selects: []pkg_types.SelectQuerySQLOperation{
+						arg1 *types.QuerySQL = &types.QuerySQL{
+							Selects: []types.SelectQuerySQLOperation{
 								{Field: "id"},
 							},
-							Searches: [][]pkg_types.SearchQuerySQLOperation{
+							Searches: [][]types.SearchQuerySQLOperation{
 								{
 									{Field: "email", Operator: "=", Value: "Ifo@gmail.com"},
 								},
@@ -322,11 +321,11 @@ func TestAuthService_RegisterAuth(t *testing.T) {
 				}
 				{
 					var (
-						arg1 *pkg_types.QuerySQL = &pkg_types.QuerySQL{
-							Selects: []pkg_types.SelectQuerySQLOperation{
+						arg1 *types.QuerySQL = &types.QuerySQL{
+							Selects: []types.SelectQuerySQLOperation{
 								{Field: "id"},
 							},
-							Searches: [][]pkg_types.SearchQuerySQLOperation{
+							Searches: [][]types.SearchQuerySQLOperation{
 								{
 									{Field: "slug", Operator: "=", Value: "super_admin"},
 								},
@@ -337,7 +336,7 @@ func TestAuthService_RegisterAuth(t *testing.T) {
 						result *sql.Role = &sql.Role{
 							ID: 2,
 						}
-						err    error     = nil
+						err error = nil
 					)
 					mockRoleResource.EXPECT().FirstRole(arg1).Return(result, err).Once()
 				}
@@ -379,11 +378,11 @@ func TestAuthService_RegisterAuth(t *testing.T) {
 				}
 				{
 					var (
-						arg1 *pkg_types.QuerySQL = &pkg_types.QuerySQL{
-							Selects: []pkg_types.SelectQuerySQLOperation{
+						arg1 *types.QuerySQL = &types.QuerySQL{
+							Selects: []types.SelectQuerySQLOperation{
 								{Field: "id"},
 							},
-							Searches: [][]pkg_types.SearchQuerySQLOperation{
+							Searches: [][]types.SearchQuerySQLOperation{
 								{
 									{Field: "email", Operator: "=", Value: "Ifo@gmail.com"},
 								},
@@ -398,11 +397,11 @@ func TestAuthService_RegisterAuth(t *testing.T) {
 				}
 				{
 					var (
-						arg1 *pkg_types.QuerySQL = &pkg_types.QuerySQL{
-							Selects: []pkg_types.SelectQuerySQLOperation{
+						arg1 *types.QuerySQL = &types.QuerySQL{
+							Selects: []types.SelectQuerySQLOperation{
 								{Field: "id"},
 							},
-							Searches: [][]pkg_types.SearchQuerySQLOperation{
+							Searches: [][]types.SearchQuerySQLOperation{
 								{
 									{Field: "slug", Operator: "=", Value: "super_admin"},
 								},
@@ -413,7 +412,7 @@ func TestAuthService_RegisterAuth(t *testing.T) {
 						result *sql.Role = &sql.Role{
 							ID: 2,
 						}
-						err    error     = nil
+						err error = nil
 					)
 					mockRoleResource.EXPECT().FirstRole(arg1).Return(result, err).Once()
 				}

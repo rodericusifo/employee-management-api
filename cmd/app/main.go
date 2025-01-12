@@ -1,0 +1,94 @@
+package main
+
+import (
+	"fmt"
+	"os"
+	"os/signal"
+	"strings"
+	"syscall"
+
+	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cors"
+	"github.com/gofiber/fiber/v2/middleware/logger"
+	"github.com/gofiber/fiber/v2/middleware/recover"
+	"github.com/gofiber/fiber/v2/middleware/requestid"
+	"github.com/sirupsen/logrus"
+
+	"github.com/rodericusifo/employee-management-api/internal/pkg/config"
+	"github.com/rodericusifo/employee-management-api/internal/pkg/constant"
+	"github.com/rodericusifo/employee-management-api/internal/pkg/util/getter"
+	"github.com/rodericusifo/employee-management-api/internal/pkg/util/handler"
+	"github.com/rodericusifo/employee-management-api/internal/pkg/util/runner"
+
+	internal_app_core_auth_controller_api "github.com/rodericusifo/employee-management-api/internal/app/core/auth/controller/api"
+	internal_app_core_employee_controller_api "github.com/rodericusifo/employee-management-api/internal/app/core/employee/controller/api"
+)
+
+func init() {
+	config.ConfigureLog()
+	config.ConfigureEnv()
+	config.ConfigureDatabaseCache(constant.REDIS)
+	config.ConfigureDatabaseSQL(constant.MYSQL)
+	config.ConfigureAuth()
+
+	runner.RunDatabaseSeederSQL(constant.MYSQL)
+}
+
+func main() {
+	app := fiber.New(fiber.Config{
+		ErrorHandler: handler.APIError,
+		ServerHeader: "Fiber",
+		AppName:      fmt.Sprintf("%s v%s", getter.GetEnvConfig().AppsName, getter.GetEnvConfig().AppsVersion),
+	})
+
+	app.Use(
+		requestid.New(),
+		logger.New(logger.Config{
+			Format: "[${time}] ${pid} | ${locals:requestid} | ${status} | ${latency} | ${method} | ${path}\n",
+		}),
+		recover.New(),
+		cors.New(cors.Config{
+			AllowMethods: "GET,POST,DELETE,PUT",
+		}),
+	)
+
+	apiVersion := "/v" + strings.Split(getter.GetEnvConfig().AppsVersion, ".")[0]
+	internal_app_core_auth_controller_api.InitAPI(app.Group(apiVersion))
+	internal_app_core_employee_controller_api.InitAPI(app.Group(apiVersion))
+
+	go func() {
+		err := app.Listen(fmt.Sprintf(":%d", func() int {
+			serverPort := getter.GetEnvConfig().ServerPort
+			if serverPort != 0 {
+				return serverPort
+			} else {
+				return constant.DEFAULT_ENV_SERVER_PORT.(int)
+			}
+		}()))
+		if err != nil {
+			logrus.WithFields(logrus.Fields{
+				"message": "error starting server",
+				"detail":  err,
+			}).Fatal("[MAIN]")
+		}
+	}()
+
+	quit := make(chan os.Signal, 1)
+	signal.Notify(quit, os.Interrupt, syscall.SIGINT, syscall.SIGTERM)
+
+	<-quit
+	logrus.WithFields(logrus.Fields{
+		"message": "shutting down server...",
+	}).Infoln("[MAIN]")
+
+	if err := app.Shutdown(); err != nil {
+		logrus.WithFields(logrus.Fields{
+			"message": "server forced to shutdown",
+			"detail":  err,
+		}).Fatal("[MAIN]")
+	}
+
+	logrus.WithFields(logrus.Fields{
+		"message": "server shutdown gracefully",
+	}).Infoln("[MAIN]")
+}

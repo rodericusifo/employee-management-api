@@ -10,8 +10,7 @@ import (
 
 	"github.com/rodericusifo/employee-management-api/internal/app/core/employee/service/dto/input"
 	"github.com/rodericusifo/employee-management-api/internal/app/model/database/sql"
-
-	pkg_types "github.com/rodericusifo/employee-management-api/pkg/types"
+	"github.com/rodericusifo/employee-management-api/internal/pkg/types"
 )
 
 func init() {
@@ -52,8 +51,8 @@ func TestEmployeeService_UpdateEmployee(t *testing.T) {
 			before: func() {
 				{
 					var (
-						arg1 *pkg_types.QuerySQL = &pkg_types.QuerySQL{
-							Searches: [][]pkg_types.SearchQuerySQLOperation{
+						arg1 *types.QuerySQL = &types.QuerySQL{
+							Searches: [][]types.SearchQuerySQLOperation{
 								{
 									{Field: "xid", Operator: "=", Value: mockUUID},
 									{Field: "user_id", Operator: "=", Value: uint(1)},
@@ -87,8 +86,8 @@ func TestEmployeeService_UpdateEmployee(t *testing.T) {
 			before: func() {
 				{
 					var (
-						arg1 *pkg_types.QuerySQL = &pkg_types.QuerySQL{
-							Searches: [][]pkg_types.SearchQuerySQLOperation{
+						arg1 *types.QuerySQL = &types.QuerySQL{
+							Searches: [][]types.SearchQuerySQLOperation{
 								{
 									{Field: "xid", Operator: "=", Value: mockUUID},
 									{Field: "user_id", Operator: "=", Value: uint(1)},
@@ -122,8 +121,8 @@ func TestEmployeeService_UpdateEmployee(t *testing.T) {
 			before: func() {
 				{
 					var (
-						arg1 *pkg_types.QuerySQL = &pkg_types.QuerySQL{
-							Searches: [][]pkg_types.SearchQuerySQLOperation{
+						arg1 *types.QuerySQL = &types.QuerySQL{
+							Searches: [][]types.SearchQuerySQLOperation{
 								{
 									{Field: "xid", Operator: "=", Value: mockUUID},
 									{Field: "user_id", Operator: "=", Value: uint(1)},
@@ -188,8 +187,8 @@ func TestEmployeeService_UpdateEmployee(t *testing.T) {
 			before: func() {
 				{
 					var (
-						arg1 *pkg_types.QuerySQL = &pkg_types.QuerySQL{
-							Searches: [][]pkg_types.SearchQuerySQLOperation{
+						arg1 *types.QuerySQL = &types.QuerySQL{
+							Searches: [][]types.SearchQuerySQLOperation{
 								{
 									{Field: "xid", Operator: "=", Value: mockUUID},
 									{Field: "user_id", Operator: "=", Value: uint(1)},

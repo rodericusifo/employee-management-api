@@ -6,10 +6,9 @@ import (
 	"github.com/rodericusifo/employee-management-api/internal/app/core/employee/controller/api/request"
 	"github.com/rodericusifo/employee-management-api/internal/app/core/employee/service/dto/input"
 	"github.com/rodericusifo/employee-management-api/internal/pkg/util/getter"
+	"github.com/rodericusifo/employee-management-api/internal/pkg/util/response"
 	"github.com/rodericusifo/employee-management-api/internal/pkg/util/serializer"
 	"github.com/rodericusifo/employee-management-api/internal/pkg/util/validator"
-
-	pkg_util_response "github.com/rodericusifo/employee-management-api/pkg/util/response"
 )
 
 func (h *EmployeeHandler) GetEmployee(ctx *fiber.Ctx) error {
@@ -30,5 +29,5 @@ func (h *EmployeeHandler) GetEmployee(ctx *fiber.Ctx) error {
 
 	getEmployeeResponse := serializer.SerializeEmployeeDTOToEmployeeResponse(employeeDtoRes)
 
-	return ctx.Status(fiber.StatusOK).JSON(pkg_util_response.ResponseSuccess("get employee success", getEmployeeResponse, nil))
+	return ctx.Status(fiber.StatusOK).JSON(response.ResponseSuccess("get employee success", getEmployeeResponse, nil))
 }

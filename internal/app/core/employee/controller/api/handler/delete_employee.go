@@ -6,9 +6,8 @@ import (
 	"github.com/rodericusifo/employee-management-api/internal/app/core/employee/controller/api/request"
 	"github.com/rodericusifo/employee-management-api/internal/app/core/employee/service/dto/input"
 	"github.com/rodericusifo/employee-management-api/internal/pkg/util/getter"
+	"github.com/rodericusifo/employee-management-api/internal/pkg/util/response"
 	"github.com/rodericusifo/employee-management-api/internal/pkg/util/validator"
-
-	pkg_util_response "github.com/rodericusifo/employee-management-api/pkg/util/response"
 )
 
 func (h *EmployeeHandler) DeleteEmployee(ctx *fiber.Ctx) error {
@@ -26,5 +25,5 @@ func (h *EmployeeHandler) DeleteEmployee(ctx *fiber.Ctx) error {
 		return err
 	}
 
-	return ctx.Status(fiber.StatusOK).JSON(pkg_util_response.ResponseSuccess[any]("delete employee success", nil, nil))
+	return ctx.Status(fiber.StatusOK).JSON(response.ResponseSuccess[any]("delete employee success", nil, nil))
 }

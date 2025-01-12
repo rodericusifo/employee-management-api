@@ -10,10 +10,10 @@ import (
 	"github.com/rodericusifo/employee-management-api/internal/app/core/employee/service/dto/input"
 	"github.com/rodericusifo/employee-management-api/internal/app/core/employee/service/dto/output"
 	"github.com/rodericusifo/employee-management-api/internal/app/model/database/sql"
+	"github.com/rodericusifo/employee-management-api/internal/pkg/types"
 
-	pkg_types "github.com/rodericusifo/employee-management-api/pkg/types"
-	pkg_util_counter "github.com/rodericusifo/employee-management-api/pkg/util/counter"
-	pkg_util_definer "github.com/rodericusifo/employee-management-api/pkg/util/definer"
+	"github.com/rodericusifo/employee-management-api/internal/pkg/util/counter"
+	"github.com/rodericusifo/employee-management-api/internal/pkg/util/definer"
 )
 
 func init() {
@@ -27,7 +27,7 @@ func TestEmployeeService_GetEmployees(t *testing.T) {
 		}
 		result struct {
 			value output.GetEmployeesDTO
-			meta  *pkg_types.Meta
+			meta  *types.Meta
 			err   error
 		}
 	)
@@ -56,13 +56,13 @@ func TestEmployeeService_GetEmployees(t *testing.T) {
 			before: func() {
 				{
 					var (
-						page, limit = pkg_util_definer.DefinePaginationPageLimit(&mockPage, &mockLimit)
-						offset      = pkg_util_counter.CountPaginationOffset(page, limit)
+						page, limit = definer.DefinePaginationPageLimit(&mockPage, &mockLimit)
+						offset      = counter.CountPaginationOffset(page, limit)
 
-						arg1 *pkg_types.QuerySQL = &pkg_types.QuerySQL{
+						arg1 *types.QuerySQL = &types.QuerySQL{
 							Limit:  limit,
 							Offset: offset,
-							Searches: [][]pkg_types.SearchQuerySQLOperation{
+							Searches: [][]types.SearchQuerySQLOperation{
 								{
 									{Field: "user_id", Operator: "=", Value: uint(1)},
 								},
@@ -95,13 +95,13 @@ func TestEmployeeService_GetEmployees(t *testing.T) {
 			before: func() {
 				{
 					var (
-						page, limit = pkg_util_definer.DefinePaginationPageLimit(&mockPage, &mockLimit)
-						offset      = pkg_util_counter.CountPaginationOffset(page, limit)
+						page, limit = definer.DefinePaginationPageLimit(&mockPage, &mockLimit)
+						offset      = counter.CountPaginationOffset(page, limit)
 
-						arg1 *pkg_types.QuerySQL = &pkg_types.QuerySQL{
+						arg1 *types.QuerySQL = &types.QuerySQL{
 							Limit:  limit,
 							Offset: offset,
-							Searches: [][]pkg_types.SearchQuerySQLOperation{
+							Searches: [][]types.SearchQuerySQLOperation{
 								{
 									{Field: "user_id", Operator: "=", Value: uint(1)},
 								},
@@ -134,13 +134,13 @@ func TestEmployeeService_GetEmployees(t *testing.T) {
 			before: func() {
 				{
 					var (
-						page, limit = pkg_util_definer.DefinePaginationPageLimit(&mockPage, &mockLimit)
-						offset      = pkg_util_counter.CountPaginationOffset(page, limit)
+						page, limit = definer.DefinePaginationPageLimit(&mockPage, &mockLimit)
+						offset      = counter.CountPaginationOffset(page, limit)
 
-						arg1 *pkg_types.QuerySQL = &pkg_types.QuerySQL{
+						arg1 *types.QuerySQL = &types.QuerySQL{
 							Limit:  limit,
 							Offset: offset,
-							Searches: [][]pkg_types.SearchQuerySQLOperation{
+							Searches: [][]types.SearchQuerySQLOperation{
 								{
 									{Field: "user_id", Operator: "=", Value: uint(1)},
 								},
@@ -167,8 +167,8 @@ func TestEmployeeService_GetEmployees(t *testing.T) {
 				}
 				{
 					var (
-						arg1 *pkg_types.QuerySQL = &pkg_types.QuerySQL{
-							Searches: [][]pkg_types.SearchQuerySQLOperation{
+						arg1 *types.QuerySQL = &types.QuerySQL{
+							Searches: [][]types.SearchQuerySQLOperation{
 								{
 									{Field: "user_id", Operator: "=", Value: uint(1)},
 									{Field: "deleted_at", Operator: "IS NULL"},
@@ -207,7 +207,7 @@ func TestEmployeeService_GetEmployees(t *testing.T) {
 						UpdatedAt: mockDate,
 					},
 				},
-				meta: &pkg_types.Meta{
+				meta: &types.Meta{
 					CurrentPage:      1,
 					CountDataPerPage: 1,
 					TotalData:        1,
@@ -218,13 +218,13 @@ func TestEmployeeService_GetEmployees(t *testing.T) {
 			before: func() {
 				{
 					var (
-						page, limit = pkg_util_definer.DefinePaginationPageLimit(&mockPage, &mockLimit)
-						offset      = pkg_util_counter.CountPaginationOffset(page, limit)
+						page, limit = definer.DefinePaginationPageLimit(&mockPage, &mockLimit)
+						offset      = counter.CountPaginationOffset(page, limit)
 
-						arg1 *pkg_types.QuerySQL = &pkg_types.QuerySQL{
+						arg1 *types.QuerySQL = &types.QuerySQL{
 							Limit:  limit,
 							Offset: offset,
-							Searches: [][]pkg_types.SearchQuerySQLOperation{
+							Searches: [][]types.SearchQuerySQLOperation{
 								{
 									{Field: "user_id", Operator: "=", Value: uint(1)},
 								},
@@ -251,8 +251,8 @@ func TestEmployeeService_GetEmployees(t *testing.T) {
 				}
 				{
 					var (
-						arg1 *pkg_types.QuerySQL = &pkg_types.QuerySQL{
-							Searches: [][]pkg_types.SearchQuerySQLOperation{
+						arg1 *types.QuerySQL = &types.QuerySQL{
+							Searches: [][]types.SearchQuerySQLOperation{
 								{
 									{Field: "user_id", Operator: "=", Value: uint(1)},
 									{Field: "deleted_at", Operator: "IS NULL"},

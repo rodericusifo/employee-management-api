@@ -3,12 +3,11 @@ package resource
 import (
 	"github.com/rodericusifo/employee-management-api/internal/app/model/database/sql"
 	"github.com/rodericusifo/employee-management-api/internal/app/repository/database/sql/role_permission"
-
-	pkg_types "github.com/rodericusifo/employee-management-api/pkg/types"
+	"github.com/rodericusifo/employee-management-api/internal/pkg/types"
 )
 
 type IRolePermissionResource interface {
-	FirstRolePermission(query *pkg_types.QuerySQL) (*sql.RolePermission, error)
+	FirstRolePermission(query *types.QuerySQL) (*sql.RolePermission, error)
 }
 
 type RolePermissionResource struct {

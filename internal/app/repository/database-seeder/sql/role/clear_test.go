@@ -49,7 +49,7 @@ func TestRoleDatabaseSeederSQLRepository_Clear(t *testing.T) {
 				}
 				{
 					var (
-						arg1 ="super_admin"
+						arg1 = "super_admin"
 					)
 					mockQuery.ExpectQuery(
 						regexp.QuoteMeta(
@@ -80,7 +80,7 @@ func TestRoleDatabaseSeederSQLRepository_Clear(t *testing.T) {
 				}
 				{
 					var (
-						arg1 ="super_admin"
+						arg1         = "super_admin"
 						rowsInstance = sqlmock.NewRows([]string{"id"})
 					)
 					rowsInstance.AddRow(1)
@@ -127,7 +127,7 @@ func TestRoleDatabaseSeederSQLRepository_Clear(t *testing.T) {
 				}
 				{
 					var (
-						arg1 ="super_admin"
+						arg1         = "super_admin"
 						rowsInstance = sqlmock.NewRows([]string{"id"})
 					)
 					rowsInstance.AddRow(1)

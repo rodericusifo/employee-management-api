@@ -3,13 +3,12 @@ package resource
 import (
 	"github.com/rodericusifo/employee-management-api/internal/app/model/database/sql"
 	"github.com/rodericusifo/employee-management-api/internal/app/repository/database/sql/user"
-
-	pkg_types "github.com/rodericusifo/employee-management-api/pkg/types"
+	"github.com/rodericusifo/employee-management-api/internal/pkg/types"
 )
 
 type IUserResource interface {
 	SaveUser(payload *sql.User) error
-	FirstUser(query *pkg_types.QuerySQL) (*sql.User, error)
+	FirstUser(query *types.QuerySQL) (*sql.User, error)
 }
 
 type UserResource struct {

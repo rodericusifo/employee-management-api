@@ -10,8 +10,7 @@ import (
 
 	"github.com/rodericusifo/employee-management-api/internal/app/core/employee/service/dto/input"
 	"github.com/rodericusifo/employee-management-api/internal/app/model/database/sql"
-
-	pkg_types "github.com/rodericusifo/employee-management-api/pkg/types"
+	"github.com/rodericusifo/employee-management-api/internal/pkg/types"
 )
 
 func init() {
@@ -50,11 +49,11 @@ func TestEmployeeService_CreateEmployee(t *testing.T) {
 			before: func() {
 				{
 					var (
-						arg1 *pkg_types.QuerySQL = &pkg_types.QuerySQL{
-							Selects: []pkg_types.SelectQuerySQLOperation{
+						arg1 *types.QuerySQL = &types.QuerySQL{
+							Selects: []types.SelectQuerySQLOperation{
 								{Field: "id"},
 							},
-							Searches: [][]pkg_types.SearchQuerySQLOperation{
+							Searches: [][]types.SearchQuerySQLOperation{
 								{
 									{Field: "email", Operator: "=", Value: "someone@mail.com"},
 								},
@@ -86,11 +85,11 @@ func TestEmployeeService_CreateEmployee(t *testing.T) {
 			before: func() {
 				{
 					var (
-						arg1 *pkg_types.QuerySQL = &pkg_types.QuerySQL{
-							Selects: []pkg_types.SelectQuerySQLOperation{
+						arg1 *types.QuerySQL = &types.QuerySQL{
+							Selects: []types.SelectQuerySQLOperation{
 								{Field: "id"},
 							},
-							Searches: [][]pkg_types.SearchQuerySQLOperation{
+							Searches: [][]types.SearchQuerySQLOperation{
 								{
 									{Field: "email", Operator: "=", Value: "someone@mail.com"},
 								},
@@ -124,11 +123,11 @@ func TestEmployeeService_CreateEmployee(t *testing.T) {
 			before: func() {
 				{
 					var (
-						arg1 *pkg_types.QuerySQL = &pkg_types.QuerySQL{
-							Selects: []pkg_types.SelectQuerySQLOperation{
+						arg1 *types.QuerySQL = &types.QuerySQL{
+							Selects: []types.SelectQuerySQLOperation{
 								{Field: "id"},
 							},
-							Searches: [][]pkg_types.SearchQuerySQLOperation{
+							Searches: [][]types.SearchQuerySQLOperation{
 								{
 									{Field: "email", Operator: "=", Value: "someone@mail.com"},
 								},
@@ -173,11 +172,11 @@ func TestEmployeeService_CreateEmployee(t *testing.T) {
 			before: func() {
 				{
 					var (
-						arg1 *pkg_types.QuerySQL = &pkg_types.QuerySQL{
-							Selects: []pkg_types.SelectQuerySQLOperation{
+						arg1 *types.QuerySQL = &types.QuerySQL{
+							Selects: []types.SelectQuerySQLOperation{
 								{Field: "id"},
 							},
-							Searches: [][]pkg_types.SearchQuerySQLOperation{
+							Searches: [][]types.SearchQuerySQLOperation{
 								{
 									{Field: "email", Operator: "=", Value: "someone@mail.com"},
 								},

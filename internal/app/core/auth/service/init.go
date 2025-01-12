@@ -3,9 +3,9 @@ package service
 import (
 	"github.com/rodericusifo/employee-management-api/internal/app/core/auth/service/dto/input"
 	"github.com/rodericusifo/employee-management-api/internal/app/core/auth/service/dto/output"
-	
-	internal_app_core_user_resource "github.com/rodericusifo/employee-management-api/internal/app/core/user/resource"
+
 	internal_app_core_role_resource "github.com/rodericusifo/employee-management-api/internal/app/core/role/resource"
+	internal_app_core_user_resource "github.com/rodericusifo/employee-management-api/internal/app/core/user/resource"
 )
 
 type IAuthService interface {

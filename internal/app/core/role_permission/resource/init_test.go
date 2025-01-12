@@ -4,12 +4,11 @@ import (
 	"time"
 
 	"github.com/rodericusifo/employee-management-api/internal/pkg/constant"
-
-	lib_mockery_mocks "github.com/rodericusifo/employee-management-api/lib/mocks"
+	"github.com/rodericusifo/employee-management-api/mocks"
 )
 
 var (
-	mockRolePermissionDatabaseSQLRepository *lib_mockery_mocks.IRolePermissionDatabaseSQLRepository
+	mockRolePermissionDatabaseSQLRepository *mocks.IRolePermissionDatabaseSQLRepository
 	rolePermissionResource                  IRolePermissionResource
 )
 
@@ -19,7 +18,7 @@ var (
 )
 
 func SetupTestRolePermissionResource() {
-	mockRolePermissionDatabaseSQLRepository = new(lib_mockery_mocks.IRolePermissionDatabaseSQLRepository)
+	mockRolePermissionDatabaseSQLRepository = new(mocks.IRolePermissionDatabaseSQLRepository)
 
 	rolePermissionResource = InitRolePermissionResource(mockRolePermissionDatabaseSQLRepository)
 

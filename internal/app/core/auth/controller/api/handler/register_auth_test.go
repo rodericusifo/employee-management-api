@@ -13,8 +13,7 @@ import (
 
 	"github.com/rodericusifo/employee-management-api/internal/app/core/auth/controller/api/request"
 	"github.com/rodericusifo/employee-management-api/internal/app/core/auth/service/dto/input"
-
-	pkg_util_response "github.com/rodericusifo/employee-management-api/pkg/util/response"
+	"github.com/rodericusifo/employee-management-api/internal/pkg/util/response"
 )
 
 func init() {
@@ -100,7 +99,7 @@ func TestAuthHandler_RegisterAuth(t *testing.T) {
 			},
 			output: result{
 				responseStatusCode: fiber.StatusOK,
-				responseBody:       pkg_util_response.ResponseSuccess[any]("auth register success", nil, nil),
+				responseBody:       response.ResponseSuccess[any]("auth register success", nil, nil),
 			},
 			before: func() {
 				{

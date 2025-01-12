@@ -6,9 +6,8 @@ import (
 	"testing"
 
 	"github.com/DATA-DOG/go-sqlmock"
+	"github.com/rodericusifo/employee-management-api/internal/pkg/types"
 	"github.com/stretchr/testify/assert"
-
-	pkg_types "github.com/rodericusifo/employee-management-api/pkg/types"
 )
 
 func init() {
@@ -18,7 +17,7 @@ func init() {
 func TestMysqlEmployeeDatabaseSQLRepository_CountEmployees(t *testing.T) {
 	type (
 		args struct {
-			query *pkg_types.QuerySQL
+			query *types.QuerySQL
 		}
 		result struct {
 			count int64
@@ -57,8 +56,8 @@ func TestMysqlEmployeeDatabaseSQLRepository_CountEmployees(t *testing.T) {
 		{
 			desc: "[SUCCESS]_success_count_employees",
 			input: args{
-				query: &pkg_types.QuerySQL{
-					Searches: [][]pkg_types.SearchQuerySQLOperation{
+				query: &types.QuerySQL{
+					Searches: [][]types.SearchQuerySQLOperation{
 						{
 							{Field: "user_id", Operator: "=", Value: uint(1)},
 							{Field: "deleted_at", Operator: "IS NULL"},

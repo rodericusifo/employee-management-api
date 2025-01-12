@@ -114,8 +114,8 @@ func TestRoleDatabaseSeederSQLRepository_Seed(t *testing.T) {
 				}
 				{
 					var (
-						arg1 = "77ce5f5f-2db6-4fff-b6e2-87464e0a9608"
-						arg2 = "super_admin"
+						arg1         = "77ce5f5f-2db6-4fff-b6e2-87464e0a9608"
+						arg2         = "super_admin"
 						rowsInstance = sqlmock.NewRows([]string{"id"})
 					)
 					rowsInstance.AddRow(1)
@@ -157,8 +157,8 @@ func TestRoleDatabaseSeederSQLRepository_Seed(t *testing.T) {
 				}
 				{
 					var (
-						arg1 = "77ce5f5f-2db6-4fff-b6e2-87464e0a9608"
-						arg2 = "super_admin"
+						arg1         = "77ce5f5f-2db6-4fff-b6e2-87464e0a9608"
+						arg2         = "super_admin"
 						rowsInstance = sqlmock.NewRows([]string{"id"})
 					)
 					rowsInstance.AddRow(1)
@@ -218,8 +218,8 @@ func TestRoleDatabaseSeederSQLRepository_Seed(t *testing.T) {
 				}
 				{
 					var (
-						arg1 = "77ce5f5f-2db6-4fff-b6e2-87464e0a9608"
-						arg2 = "super_admin"
+						arg1         = "77ce5f5f-2db6-4fff-b6e2-87464e0a9608"
+						arg2         = "super_admin"
 						rowsInstance = sqlmock.NewRows([]string{"id"})
 					)
 					rowsInstance.AddRow(1)

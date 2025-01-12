@@ -1,10 +1,11 @@
 package user
 
 import (
+	"github.com/sirupsen/logrus"
+
 	"github.com/rodericusifo/employee-management-api/internal/pkg/config"
 
 	gorm_seeder "github.com/kachit/gorm-seeder"
-	log "github.com/sirupsen/logrus"
 )
 
 func ExecuteMysqlUserDatabaseSeederRepository(isRebuildData config.IsRebuildDataDBSeederMysqlUser, db config.MysqlDatabaseSQLConnection) {
@@ -15,26 +16,26 @@ func ExecuteMysqlUserDatabaseSeederRepository(isRebuildData config.IsRebuildData
 	if isRebuildData {
 		err := seedersStack.Clear()
 		if err != nil {
-			log.WithFields(log.Fields{
+			logrus.WithFields(logrus.Fields{
 				"message": "clear user fail",
 				"detail":  err,
 			}).Errorln("[EXECUTE MYSQL USER DATABASE SEEDER REPOSITORY]")
 			return
 		}
-		log.WithFields(log.Fields{
+		logrus.WithFields(logrus.Fields{
 			"message": "clear user success",
 		}).Infoln("[EXECUTE MYSQL USER DATABASE SEEDER REPOSITORY]")
 	}
 
 	err := seedersStack.Seed()
 	if err != nil {
-		log.WithFields(log.Fields{
+		logrus.WithFields(logrus.Fields{
 			"message": "seed user fail",
 			"detail":  err,
 		}).Errorln("[EXECUTE MYSQL USER DATABASE SEEDER REPOSITORY]")
 		return
 	}
-	log.WithFields(log.Fields{
+	logrus.WithFields(logrus.Fields{
 		"message": "seed user success",
 	}).Infoln("[EXECUTE MYSQL USER DATABASE SEEDER REPOSITORY]")
 }

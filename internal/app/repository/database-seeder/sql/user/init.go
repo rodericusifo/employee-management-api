@@ -2,10 +2,9 @@ package user
 
 import (
 	"github.com/rodericusifo/employee-management-api/internal/app/model/database/sql"
+	"github.com/rodericusifo/employee-management-api/internal/pkg/constant"
 
 	gorm_seeder "github.com/kachit/gorm-seeder"
-
-	pkg_constant "github.com/rodericusifo/employee-management-api/pkg/constant"
 )
 
 type UserDatabaseSeederSQLRepository struct {
@@ -14,9 +13,12 @@ type UserDatabaseSeederSQLRepository struct {
 		sql.User
 		sql.Role
 	}
-	dialect pkg_constant.DialectDatabaseSQL
+	dialect constant.DialectDatabaseSQL
 }
 
 func InitMysqlUserDatabaseSeederSQLRepository(cfg gorm_seeder.SeederConfiguration) *UserDatabaseSeederSQLRepository {
-	return &UserDatabaseSeederSQLRepository{gorm_seeder.NewSeederAbstract(cfg), struct{sql.User; sql.Role}{}, pkg_constant.MYSQL}
+	return &UserDatabaseSeederSQLRepository{gorm_seeder.NewSeederAbstract(cfg), struct {
+		sql.User
+		sql.Role
+	}{}, constant.MYSQL}
 }

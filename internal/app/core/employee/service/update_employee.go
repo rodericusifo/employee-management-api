@@ -5,13 +5,12 @@ import (
 	"gorm.io/gorm"
 
 	"github.com/rodericusifo/employee-management-api/internal/app/core/employee/service/dto/input"
-
-	pkg_types "github.com/rodericusifo/employee-management-api/pkg/types"
+	"github.com/rodericusifo/employee-management-api/internal/pkg/types"
 )
 
 func (s *EmployeeService) UpdateEmployee(payload *input.UpdateEmployeeDTO) error {
-	employeeModelRes, err := s.EmployeeResource.FirstEmployee(&pkg_types.QuerySQL{
-		Searches: [][]pkg_types.SearchQuerySQLOperation{
+	employeeModelRes, err := s.EmployeeResource.FirstEmployee(&types.QuerySQL{
+		Searches: [][]types.SearchQuerySQLOperation{
 			{
 				{Field: "xid", Operator: "=", Value: payload.XID},
 				{Field: "user_id", Operator: "=", Value: payload.UserID},

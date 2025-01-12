@@ -14,12 +14,10 @@ import (
 	"github.com/rodericusifo/employee-management-api/internal/pkg/constant"
 	"github.com/rodericusifo/employee-management-api/internal/pkg/util/mocker"
 	"github.com/rodericusifo/employee-management-api/internal/pkg/util/patcher"
-
-	pkg_constant "github.com/rodericusifo/employee-management-api/pkg/constant"
 )
 
 func SetupTestExecuteMysqlUserDatabaseSeederSQLRepository() {
-	dialect := pkg_constant.MYSQL
+	dialect := constant.MYSQL
 	db, mock := mocker.MockDatabaseSQLConnection(dialect)
 
 	mockQuery = mock

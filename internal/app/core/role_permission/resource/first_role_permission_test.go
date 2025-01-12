@@ -7,8 +7,7 @@ import (
 	"github.com/stretchr/testify/assert"
 
 	"github.com/rodericusifo/employee-management-api/internal/app/model/database/sql"
-
-	pkg_types "github.com/rodericusifo/employee-management-api/pkg/types"
+	"github.com/rodericusifo/employee-management-api/internal/pkg/types"
 )
 
 func init() {
@@ -18,7 +17,7 @@ func init() {
 func TestRolePermissionResource_FirstRolePermission(t *testing.T) {
 	type (
 		args struct {
-			query *pkg_types.QuerySQL
+			query *types.QuerySQL
 		}
 		result struct {
 			value *sql.RolePermission
@@ -45,11 +44,11 @@ func TestRolePermissionResource_FirstRolePermission(t *testing.T) {
 			before: func() {
 				{
 					var (
-						arg1 *pkg_types.QuerySQL = nil
+						arg1 *types.QuerySQL = nil
 					)
 					var (
 						result *sql.RolePermission = nil
-						err    error     = errors.New("error something")
+						err    error               = errors.New("error something")
 					)
 					mockRolePermissionDatabaseSQLRepository.EXPECT().FirstRolePermission(arg1).Return(result, err).Once()
 				}
@@ -63,18 +62,18 @@ func TestRolePermissionResource_FirstRolePermission(t *testing.T) {
 			},
 			output: result{
 				value: &sql.RolePermission{
-					ID:        3,
+					ID: 3,
 				},
 				err: nil,
 			},
 			before: func() {
 				{
 					var (
-						arg1 *pkg_types.QuerySQL = nil
+						arg1 *types.QuerySQL = nil
 					)
 					var (
 						result *sql.RolePermission = &sql.RolePermission{
-							ID:        3,
+							ID: 3,
 						}
 						err error = nil
 					)

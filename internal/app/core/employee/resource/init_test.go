@@ -4,12 +4,11 @@ import (
 	"time"
 
 	"github.com/rodericusifo/employee-management-api/internal/pkg/constant"
-
-	lib_mockery_mocks "github.com/rodericusifo/employee-management-api/lib/mocks"
+	"github.com/rodericusifo/employee-management-api/mocks"
 )
 
 var (
-	mockEmployeeDatabaseSQLRepository *lib_mockery_mocks.IEmployeeDatabaseSQLRepository
+	mockEmployeeDatabaseSQLRepository *mocks.IEmployeeDatabaseSQLRepository
 	employeeResource                  IEmployeeResource
 )
 
@@ -20,7 +19,7 @@ var (
 )
 
 func SetupTestEmployeeResource() {
-	mockEmployeeDatabaseSQLRepository = new(lib_mockery_mocks.IEmployeeDatabaseSQLRepository)
+	mockEmployeeDatabaseSQLRepository = new(mocks.IEmployeeDatabaseSQLRepository)
 
 	employeeResource = InitEmployeeResource(mockEmployeeDatabaseSQLRepository)
 

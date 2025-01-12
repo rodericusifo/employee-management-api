@@ -49,12 +49,6 @@ services:
       args:
         ENV: ${ENV}
         PORT: ${SERVER_PORT}
-    environment:
-      - ENV=${ENV}
-      - PORT=${SERVER_PORT}
-    expose:
-      - ${SERVER_PORT}
-    command: ["sh", "-c", "/dist/main -env \"$ENV\""]
     ports:
       - 8081:${SERVER_PORT}
     restart: on-failure

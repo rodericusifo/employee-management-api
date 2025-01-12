@@ -7,8 +7,7 @@ import (
 	"github.com/stretchr/testify/assert"
 
 	"github.com/rodericusifo/employee-management-api/internal/app/model/database/sql"
-
-	pkg_types "github.com/rodericusifo/employee-management-api/pkg/types"
+	"github.com/rodericusifo/employee-management-api/internal/pkg/types"
 )
 
 func init() {
@@ -18,7 +17,7 @@ func init() {
 func TestPermissionResource_FirstPermission(t *testing.T) {
 	type (
 		args struct {
-			query *pkg_types.QuerySQL
+			query *types.QuerySQL
 		}
 		result struct {
 			value *sql.Permission
@@ -45,11 +44,11 @@ func TestPermissionResource_FirstPermission(t *testing.T) {
 			before: func() {
 				{
 					var (
-						arg1 *pkg_types.QuerySQL = nil
+						arg1 *types.QuerySQL = nil
 					)
 					var (
 						result *sql.Permission = nil
-						err    error     = errors.New("error something")
+						err    error           = errors.New("error something")
 					)
 					mockPermissionDatabaseSQLRepository.EXPECT().FirstPermission(arg1).Return(result, err).Once()
 				}
@@ -75,7 +74,7 @@ func TestPermissionResource_FirstPermission(t *testing.T) {
 			before: func() {
 				{
 					var (
-						arg1 *pkg_types.QuerySQL = nil
+						arg1 *types.QuerySQL = nil
 					)
 					var (
 						result *sql.Permission = &sql.Permission{

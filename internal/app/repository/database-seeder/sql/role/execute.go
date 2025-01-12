@@ -1,10 +1,11 @@
 package role
 
 import (
+	"github.com/sirupsen/logrus"
+
 	"github.com/rodericusifo/employee-management-api/internal/pkg/config"
 
 	gorm_seeder "github.com/kachit/gorm-seeder"
-	log "github.com/sirupsen/logrus"
 )
 
 func ExecuteMysqlRoleDatabaseSeederRepository(isRebuildData config.IsRebuildDataDBSeederMysqlRole, db config.MysqlDatabaseSQLConnection) {
@@ -15,26 +16,26 @@ func ExecuteMysqlRoleDatabaseSeederRepository(isRebuildData config.IsRebuildData
 	if isRebuildData {
 		err := seedersStack.Clear()
 		if err != nil {
-			log.WithFields(log.Fields{
+			logrus.WithFields(logrus.Fields{
 				"message": "clear role fail",
 				"detail":  err,
 			}).Errorln("[EXECUTE MYSQL ROLE DATABASE SEEDER REPOSITORY]")
 			return
 		}
-		log.WithFields(log.Fields{
+		logrus.WithFields(logrus.Fields{
 			"message": "clear role success",
 		}).Infoln("[EXECUTE MYSQL ROLE DATABASE SEEDER REPOSITORY]")
 	}
 
 	err := seedersStack.Seed()
 	if err != nil {
-		log.WithFields(log.Fields{
+		logrus.WithFields(logrus.Fields{
 			"message": "seed role fail",
 			"detail":  err,
 		}).Errorln("[EXECUTE MYSQL ROLE DATABASE SEEDER REPOSITORY]")
 		return
 	}
-	log.WithFields(log.Fields{
+	logrus.WithFields(logrus.Fields{
 		"message": "seed role success",
 	}).Infoln("[EXECUTE MYSQL ROLE DATABASE SEEDER REPOSITORY]")
 }

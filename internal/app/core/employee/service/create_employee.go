@@ -6,16 +6,15 @@ import (
 
 	"github.com/rodericusifo/employee-management-api/internal/app/core/employee/service/dto/input"
 	"github.com/rodericusifo/employee-management-api/internal/app/model/database/sql"
-
-	pkg_types "github.com/rodericusifo/employee-management-api/pkg/types"
+	"github.com/rodericusifo/employee-management-api/internal/pkg/types"
 )
 
 func (s *EmployeeService) CreateEmployee(payload *input.CreateEmployeeDTO) error {
-	employeeModelRes, err := s.EmployeeResource.FirstEmployee(&pkg_types.QuerySQL{
-		Selects: []pkg_types.SelectQuerySQLOperation{
+	employeeModelRes, err := s.EmployeeResource.FirstEmployee(&types.QuerySQL{
+		Selects: []types.SelectQuerySQLOperation{
 			{Field: "id"},
 		},
-		Searches: [][]pkg_types.SearchQuerySQLOperation{
+		Searches: [][]types.SearchQuerySQLOperation{
 			{
 				{Field: "email", Operator: "=", Value: payload.Email},
 			},

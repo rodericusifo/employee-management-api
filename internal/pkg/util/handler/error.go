@@ -7,20 +7,19 @@ import (
 
 	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
+	"github.com/sirupsen/logrus"
 
-	log "github.com/sirupsen/logrus"
-
-	pkg_util_response "github.com/rodericusifo/employee-management-api/pkg/util/response"
+	"github.com/rodericusifo/employee-management-api/internal/pkg/util/response"
 )
 
 func APIError(ctx *fiber.Ctx, err error) error {
-	log.WithFields(log.Fields{
+	logrus.WithFields(logrus.Fields{
 		"type":   fmt.Sprintf("%T", err),
 		"detail": err,
 	}).Errorln("[API ERROR]")
 	fe, ok := err.(*fiber.Error)
 	if ok {
-		return ctx.Status(fe.Code).JSON(pkg_util_response.ResponseFail(fmt.Sprint(fe.Error()), fe))
+		return ctx.Status(fe.Code).JSON(response.ResponseFail(fmt.Sprint(fe.Error()), fe))
 	}
 	ve, ok := err.(validator.ValidationErrors)
 	if ok {
@@ -37,18 +36,18 @@ func APIError(ctx *fiber.Ctx, err error) error {
 			element.Error = err.Error()
 			errors = append(errors, &element)
 		}
-		return ctx.Status(fiber.StatusBadRequest).JSON(pkg_util_response.ResponseFail("validation error", errors))
+		return ctx.Status(fiber.StatusBadRequest).JSON(response.ResponseFail("validation error", errors))
 	}
 	me, ok := err.(*json.MarshalerError)
 	if ok {
-		return ctx.Status(fiber.StatusUnprocessableEntity).JSON(pkg_util_response.ResponseFail(me.Error(), me.Unwrap()))
+		return ctx.Status(fiber.StatusUnprocessableEntity).JSON(response.ResponseFail(me.Error(), me.Unwrap()))
 	}
 	re, ok := err.(runtime.Error)
 	if ok {
-		return ctx.Status(fiber.StatusUnprocessableEntity).JSON(pkg_util_response.ResponseFail(re.Error(), re))
+		return ctx.Status(fiber.StatusUnprocessableEntity).JSON(response.ResponseFail(re.Error(), re))
 	}
 	if e := err; e != nil {
-		return ctx.Status(fiber.StatusInternalServerError).JSON(pkg_util_response.ResponseFail(e.Error(), e))
+		return ctx.Status(fiber.StatusInternalServerError).JSON(response.ResponseFail(e.Error(), e))
 	}
 	return nil
 }

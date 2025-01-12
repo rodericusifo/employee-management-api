@@ -7,8 +7,7 @@ import (
 	"github.com/stretchr/testify/assert"
 
 	"github.com/rodericusifo/employee-management-api/internal/app/model/database/sql"
-
-	pkg_types "github.com/rodericusifo/employee-management-api/pkg/types"
+	"github.com/rodericusifo/employee-management-api/internal/pkg/types"
 )
 
 func init() {
@@ -18,7 +17,7 @@ func init() {
 func TestUserResource_FirstUser(t *testing.T) {
 	type (
 		args struct {
-			query *pkg_types.QuerySQL
+			query *types.QuerySQL
 		}
 		result struct {
 			value *sql.User
@@ -45,7 +44,7 @@ func TestUserResource_FirstUser(t *testing.T) {
 			before: func() {
 				{
 					var (
-						arg1 *pkg_types.QuerySQL = nil
+						arg1 *types.QuerySQL = nil
 					)
 					var (
 						result *sql.User = nil
@@ -68,7 +67,7 @@ func TestUserResource_FirstUser(t *testing.T) {
 					Name:      "Someone",
 					Email:     "someone@mail.com",
 					Password:  mockHashPassword,
-					RoleID:      1,
+					RoleID:    1,
 					CreatedAt: mockDateTime,
 					UpdatedAt: mockDateTime,
 				},
@@ -77,7 +76,7 @@ func TestUserResource_FirstUser(t *testing.T) {
 			before: func() {
 				{
 					var (
-						arg1 *pkg_types.QuerySQL = nil
+						arg1 *types.QuerySQL = nil
 					)
 					var (
 						result *sql.User = &sql.User{
@@ -86,7 +85,7 @@ func TestUserResource_FirstUser(t *testing.T) {
 							Name:      "Someone",
 							Email:     "someone@mail.com",
 							Password:  mockHashPassword,
-							RoleID:      1,
+							RoleID:    1,
 							CreatedAt: mockDateTime,
 							UpdatedAt: mockDateTime,
 						}

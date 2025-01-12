@@ -10,8 +10,7 @@ import (
 	"github.com/stretchr/testify/assert"
 
 	"github.com/rodericusifo/employee-management-api/internal/app/model/database/sql"
-
-	pkg_types "github.com/rodericusifo/employee-management-api/pkg/types"
+	"github.com/rodericusifo/employee-management-api/internal/pkg/types"
 )
 
 func init() {
@@ -21,7 +20,7 @@ func init() {
 func TestMysqlEmployeeDatabaseSQLRepository_FirstEmployee(t *testing.T) {
 	type (
 		args struct {
-			query *pkg_types.QuerySQL
+			query *types.QuerySQL
 		}
 		result struct {
 			value *sql.Employee
@@ -39,8 +38,8 @@ func TestMysqlEmployeeDatabaseSQLRepository_FirstEmployee(t *testing.T) {
 		{
 			desc: "[ERROR]_because_something_error_happens",
 			input: args{
-				query: &pkg_types.QuerySQL{
-					Selects: []pkg_types.SelectQuerySQLOperation{
+				query: &types.QuerySQL{
+					Selects: []types.SelectQuerySQLOperation{
 						{Field: "id"},
 						{Field: "xid"},
 						{Field: "name"},
@@ -51,23 +50,23 @@ func TestMysqlEmployeeDatabaseSQLRepository_FirstEmployee(t *testing.T) {
 						{Field: "created_at"},
 						{Field: "updated_at"},
 					},
-					Searches: [][]pkg_types.SearchQuerySQLOperation{
+					Searches: [][]types.SearchQuerySQLOperation{
 						{
 							{Field: "xid", Operator: "=", Value: mockUUID},
 							{Field: "email", Operator: "=", Value: "someone@mail.com"},
 							{Field: "user_id", Operator: "=", Value: uint(1)},
 						},
 					},
-					Joins: []pkg_types.JoinQuerySQLOperation{
+					Joins: []types.JoinQuerySQLOperation{
 						{
 							Relation: "User",
 						},
 					},
-					Orders: []pkg_types.OrderQuerySQLOperation{
+					Orders: []types.OrderQuerySQLOperation{
 						{Field: "name"},
 						{Field: "age", Descending: true},
 					},
-					Groups: []pkg_types.GroupQuerySQLOperation{
+					Groups: []types.GroupQuerySQLOperation{
 						{Field: "name"},
 					},
 					WithDeleted: true,
@@ -98,8 +97,8 @@ func TestMysqlEmployeeDatabaseSQLRepository_FirstEmployee(t *testing.T) {
 		{
 			desc: "[ERROR]_because_something_error_happens_1",
 			input: args{
-				query: &pkg_types.QuerySQL{
-					Selects: []pkg_types.SelectQuerySQLOperation{
+				query: &types.QuerySQL{
+					Selects: []types.SelectQuerySQLOperation{
 						{Field: "id"},
 						{Field: "xid"},
 						{Field: "name"},
@@ -110,17 +109,17 @@ func TestMysqlEmployeeDatabaseSQLRepository_FirstEmployee(t *testing.T) {
 						{Field: "created_at"},
 						{Field: "updated_at"},
 					},
-					Searches: [][]pkg_types.SearchQuerySQLOperation{
+					Searches: [][]types.SearchQuerySQLOperation{
 						{
 							{Field: "xid", Operator: "=", Value: mockUUID},
 							{Field: "email", Operator: "=", Value: "someone@mail.com"},
 							{Field: "user_id", Operator: "=", Value: uint(1)},
 						},
 					},
-					Joins: []pkg_types.JoinQuerySQLOperation{
+					Joins: []types.JoinQuerySQLOperation{
 						{
 							Relation: "User",
-							Selects: []pkg_types.SelectJoinQuerySQLOperation{
+							Selects: []types.SelectJoinQuerySQLOperation{
 								{Field: "id"},
 								{Field: "xid"},
 								{Field: "name"},
@@ -154,8 +153,8 @@ func TestMysqlEmployeeDatabaseSQLRepository_FirstEmployee(t *testing.T) {
 		{
 			desc: "[ERROR]_because_something_error_happens_2",
 			input: args{
-				query: &pkg_types.QuerySQL{
-					Selects: []pkg_types.SelectQuerySQLOperation{
+				query: &types.QuerySQL{
+					Selects: []types.SelectQuerySQLOperation{
 						{Field: "id"},
 						{Field: "xid"},
 						{Field: "name"},
@@ -166,17 +165,17 @@ func TestMysqlEmployeeDatabaseSQLRepository_FirstEmployee(t *testing.T) {
 						{Field: "created_at"},
 						{Field: "updated_at"},
 					},
-					Searches: [][]pkg_types.SearchQuerySQLOperation{
+					Searches: [][]types.SearchQuerySQLOperation{
 						{
 							{Field: "xid", Operator: "=", Value: mockUUID},
 							{Field: "email", Operator: "=", Value: "someone@mail.com"},
 							{Field: "user_id", Operator: "=", Value: uint(1)},
 						},
 					},
-					InnerJoins: []pkg_types.InnerJoinQuerySQLOperation{
+					InnerJoins: []types.InnerJoinQuerySQLOperation{
 						{
 							Relation: "User",
-							Selects: []pkg_types.SelectJoinQuerySQLOperation{
+							Selects: []types.SelectJoinQuerySQLOperation{
 								{Field: "id"},
 								{Field: "xid"},
 								{Field: "name"},
@@ -210,9 +209,9 @@ func TestMysqlEmployeeDatabaseSQLRepository_FirstEmployee(t *testing.T) {
 		{
 			desc: "[SUCCESS]_success_first_employee",
 			input: args{
-				query: &pkg_types.QuerySQL{
+				query: &types.QuerySQL{
 					Distinct: true,
-					Selects: []pkg_types.SelectQuerySQLOperation{
+					Selects: []types.SelectQuerySQLOperation{
 						{Field: "id"},
 						{Field: "xid"},
 						{Field: "name"},
@@ -223,22 +222,22 @@ func TestMysqlEmployeeDatabaseSQLRepository_FirstEmployee(t *testing.T) {
 						{Field: "created_at"},
 						{Field: "updated_at"},
 					},
-					Searches: [][]pkg_types.SearchQuerySQLOperation{
+					Searches: [][]types.SearchQuerySQLOperation{
 						{
 							{Field: "xid", Operator: "=", Value: mockUUID},
 							{Field: "email", Operator: "=", Value: "someone@mail.com"},
 							{Field: "user_id", Operator: "=", Value: uint(1)},
 						},
 					},
-					Joins: []pkg_types.JoinQuerySQLOperation{
+					Joins: []types.JoinQuerySQLOperation{
 						{
 							Relation: "User",
-							Selects: []pkg_types.SelectJoinQuerySQLOperation{
+							Selects: []types.SelectJoinQuerySQLOperation{
 								{Field: "id"},
 								{Field: "xid"},
 								{Field: "name"},
 							},
-							Searches: [][]pkg_types.SearchQuerySQLOperation{
+							Searches: [][]types.SearchQuerySQLOperation{
 								{
 									{Field: "name", Operator: "LIKE", Value: fmt.Sprint("%", "sometwo", "%")},
 								},

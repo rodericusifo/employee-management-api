@@ -9,8 +9,7 @@ import (
 	"github.com/stretchr/testify/assert"
 
 	"github.com/rodericusifo/employee-management-api/internal/app/model/database/sql"
-
-	pkg_types "github.com/rodericusifo/employee-management-api/pkg/types"
+	"github.com/rodericusifo/employee-management-api/internal/pkg/types"
 )
 
 func init() {
@@ -20,7 +19,7 @@ func init() {
 func TestMysqlUserDatabaseSQLRepository_FirstUser(t *testing.T) {
 	type (
 		args struct {
-			query *pkg_types.QuerySQL
+			query *types.QuerySQL
 		}
 		result struct {
 			value *sql.User
@@ -38,8 +37,8 @@ func TestMysqlUserDatabaseSQLRepository_FirstUser(t *testing.T) {
 		{
 			desc: "[ERROR]_because_something_error_happens",
 			input: args{
-				query: &pkg_types.QuerySQL{
-					Selects: []pkg_types.SelectQuerySQLOperation{
+				query: &types.QuerySQL{
+					Selects: []types.SelectQuerySQLOperation{
 						{Field: "id"},
 						{Field: "xid"},
 						{Field: "name"},
@@ -49,7 +48,7 @@ func TestMysqlUserDatabaseSQLRepository_FirstUser(t *testing.T) {
 						{Field: "created_at"},
 						{Field: "updated_at"},
 					},
-					Searches: [][]pkg_types.SearchQuerySQLOperation{
+					Searches: [][]types.SearchQuerySQLOperation{
 						{
 							{Field: "email", Operator: "=", Value: "someone@mail.com"},
 						},
@@ -79,8 +78,8 @@ func TestMysqlUserDatabaseSQLRepository_FirstUser(t *testing.T) {
 		{
 			desc: "[SUCCESS]_success_first_user",
 			input: args{
-				query: &pkg_types.QuerySQL{
-					Selects: []pkg_types.SelectQuerySQLOperation{
+				query: &types.QuerySQL{
+					Selects: []types.SelectQuerySQLOperation{
 						{Field: "id"},
 						{Field: "xid"},
 						{Field: "name"},
@@ -90,7 +89,7 @@ func TestMysqlUserDatabaseSQLRepository_FirstUser(t *testing.T) {
 						{Field: "created_at"},
 						{Field: "updated_at"},
 					},
-					Searches: [][]pkg_types.SearchQuerySQLOperation{
+					Searches: [][]types.SearchQuerySQLOperation{
 						{
 							{Field: "email", Operator: "=", Value: "someone@mail.com"},
 						},

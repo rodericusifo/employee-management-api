@@ -4,9 +4,8 @@ import (
 	"errors"
 	"testing"
 
+	"github.com/rodericusifo/employee-management-api/internal/pkg/types"
 	"github.com/stretchr/testify/assert"
-
-	pkg_types "github.com/rodericusifo/employee-management-api/pkg/types"
 )
 
 func init() {
@@ -16,7 +15,7 @@ func init() {
 func TestEmployeeResource_CountEmployees(t *testing.T) {
 	type (
 		args struct {
-			query *pkg_types.QuerySQL
+			query *types.QuerySQL
 		}
 		result struct {
 			value int64
@@ -34,8 +33,8 @@ func TestEmployeeResource_CountEmployees(t *testing.T) {
 		{
 			desc: "[ERROR]_because_something_error_happens",
 			input: args{
-				query: &pkg_types.QuerySQL{
-					Searches: [][]pkg_types.SearchQuerySQLOperation{
+				query: &types.QuerySQL{
+					Searches: [][]types.SearchQuerySQLOperation{
 						{
 							{Field: "user_id", Operator: "=", Value: uint(1)},
 						},
@@ -49,8 +48,8 @@ func TestEmployeeResource_CountEmployees(t *testing.T) {
 			before: func() {
 				{
 					var (
-						arg1 *pkg_types.QuerySQL = &pkg_types.QuerySQL{
-							Searches: [][]pkg_types.SearchQuerySQLOperation{
+						arg1 *types.QuerySQL = &types.QuerySQL{
+							Searches: [][]types.SearchQuerySQLOperation{
 								{
 									{Field: "user_id", Operator: "=", Value: uint(1)},
 								},
@@ -69,8 +68,8 @@ func TestEmployeeResource_CountEmployees(t *testing.T) {
 		{
 			desc: "[SUCCESS]_success_count_all_employee",
 			input: args{
-				query: &pkg_types.QuerySQL{
-					Searches: [][]pkg_types.SearchQuerySQLOperation{
+				query: &types.QuerySQL{
+					Searches: [][]types.SearchQuerySQLOperation{
 						{
 							{Field: "user_id", Operator: "=", Value: uint(1)},
 						},
@@ -84,8 +83,8 @@ func TestEmployeeResource_CountEmployees(t *testing.T) {
 			before: func() {
 				{
 					var (
-						arg1 *pkg_types.QuerySQL = &pkg_types.QuerySQL{
-							Searches: [][]pkg_types.SearchQuerySQLOperation{
+						arg1 *types.QuerySQL = &types.QuerySQL{
+							Searches: [][]types.SearchQuerySQLOperation{
 								{
 									{Field: "user_id", Operator: "=", Value: uint(1)},
 								},

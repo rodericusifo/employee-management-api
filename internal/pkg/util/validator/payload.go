@@ -1,9 +1,9 @@
 package validator
 
 import (
-	"github.com/rodericusifo/employee-management-api/internal/pkg/types"
+	"github.com/sirupsen/logrus"
 
-	log "github.com/sirupsen/logrus"
+	"github.com/rodericusifo/employee-management-api/internal/pkg/types"
 )
 
 type IPayload interface {
@@ -14,7 +14,7 @@ func ValidatePayload(payload IPayload) error {
 	validator := types.InitValidator()
 
 	if err := validator.Validate(payload); err != nil {
-		log.WithFields(log.Fields{
+		logrus.WithFields(logrus.Fields{
 			"message": "validate payload fail",
 			"detail":  err,
 		}).Errorln("[VALIDATE PAYLOAD]")

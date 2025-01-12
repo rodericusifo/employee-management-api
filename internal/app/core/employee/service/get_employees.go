@@ -5,20 +5,19 @@ import (
 
 	"github.com/rodericusifo/employee-management-api/internal/app/core/employee/service/dto/input"
 	"github.com/rodericusifo/employee-management-api/internal/app/core/employee/service/dto/output"
+	"github.com/rodericusifo/employee-management-api/internal/pkg/types"
+	"github.com/rodericusifo/employee-management-api/internal/pkg/util/counter"
+	"github.com/rodericusifo/employee-management-api/internal/pkg/util/definer"
 	"github.com/rodericusifo/employee-management-api/internal/pkg/util/serializer"
-
-	pkg_types "github.com/rodericusifo/employee-management-api/pkg/types"
-	pkg_util_counter "github.com/rodericusifo/employee-management-api/pkg/util/counter"
-	pkg_util_definer "github.com/rodericusifo/employee-management-api/pkg/util/definer"
 )
 
-func (s *EmployeeService) GetEmployees(payload *input.GetEmployeesDTO) (output.GetEmployeesDTO, *pkg_types.Meta, error) {
-	page, limit := pkg_util_definer.DefinePaginationPageLimit(payload.Page, payload.Limit)
+func (s *EmployeeService) GetEmployees(payload *input.GetEmployeesDTO) (output.GetEmployeesDTO, *types.Meta, error) {
+	page, limit := definer.DefinePaginationPageLimit(payload.Page, payload.Limit)
 
-	employeeListModelRes, err := s.EmployeeResource.FindEmployees(&pkg_types.QuerySQL{
-		Offset: pkg_util_counter.CountPaginationOffset(page, limit),
+	employeeListModelRes, err := s.EmployeeResource.FindEmployees(&types.QuerySQL{
+		Offset: counter.CountPaginationOffset(page, limit),
 		Limit:  limit,
-		Searches: [][]pkg_types.SearchQuerySQLOperation{
+		Searches: [][]types.SearchQuerySQLOperation{
 			{
 				{Field: "user_id", Operator: "=", Value: payload.UserID},
 			},
@@ -33,8 +32,8 @@ func (s *EmployeeService) GetEmployees(payload *input.GetEmployeesDTO) (output.G
 		return nil, nil, fiber.NewError(fiber.StatusNotFound, "employees not found")
 	}
 
-	countEmployeeAllModelRes, err := s.EmployeeResource.CountEmployees(&pkg_types.QuerySQL{
-		Searches: [][]pkg_types.SearchQuerySQLOperation{
+	countEmployeeAllModelRes, err := s.EmployeeResource.CountEmployees(&types.QuerySQL{
+		Searches: [][]types.SearchQuerySQLOperation{
 			{
 				{Field: "user_id", Operator: "=", Value: payload.UserID},
 				{Field: "deleted_at", Operator: "IS NULL"},
@@ -47,13 +46,13 @@ func (s *EmployeeService) GetEmployees(payload *input.GetEmployeesDTO) (output.G
 
 	employeeListDto := serializer.SerializeEmployeesToEmployeeDTOs(employeeListModelRes)
 
-	meta := &pkg_types.Meta{
+	meta := &types.Meta{
 		CurrentPage:      page,
 		CountDataPerPage: countEmployeeListModelRes,
 		TotalData:        int(countEmployeeAllModelRes),
 	}
 
-	meta.TotalPage = pkg_util_counter.CountPaginationTotalPage(meta.CountDataPerPage, meta.TotalData)
+	meta.TotalPage = counter.CountPaginationTotalPage(meta.CountDataPerPage, meta.TotalData)
 
 	return employeeListDto, meta, nil
 }

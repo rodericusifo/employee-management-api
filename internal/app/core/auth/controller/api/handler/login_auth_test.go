@@ -16,7 +16,7 @@ import (
 	"github.com/rodericusifo/employee-management-api/internal/app/core/auth/service/dto/input"
 	"github.com/rodericusifo/employee-management-api/internal/app/core/auth/service/dto/output"
 
-	pkg_util_response "github.com/rodericusifo/employee-management-api/pkg/util/response"
+	internal_pkg_util_response "github.com/rodericusifo/employee-management-api/internal/pkg/util/response"
 )
 
 func init() {
@@ -95,7 +95,7 @@ func TestAuthHandler_LoginAuth(t *testing.T) {
 			},
 			output: result{
 				responseStatusCode: fiber.StatusOK,
-				responseBody: pkg_util_response.ResponseSuccess("auth login success", &response.LoginAuthResponse{
+				responseBody: internal_pkg_util_response.ResponseSuccess("auth login success", &response.LoginAuthResponse{
 					Token: mockJWTToken,
 				}, nil),
 			},

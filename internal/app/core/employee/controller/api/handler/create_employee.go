@@ -9,9 +9,8 @@ import (
 	"github.com/rodericusifo/employee-management-api/internal/app/core/employee/service/dto/input"
 	"github.com/rodericusifo/employee-management-api/internal/pkg/constant"
 	"github.com/rodericusifo/employee-management-api/internal/pkg/util/getter"
+	"github.com/rodericusifo/employee-management-api/internal/pkg/util/response"
 	"github.com/rodericusifo/employee-management-api/internal/pkg/util/validator"
-
-	pkg_util_response "github.com/rodericusifo/employee-management-api/pkg/util/response"
 )
 
 func (h *EmployeeHandler) CreateEmployee(ctx *fiber.Ctx) error {
@@ -39,5 +38,5 @@ func (h *EmployeeHandler) CreateEmployee(ctx *fiber.Ctx) error {
 		return err
 	}
 
-	return ctx.Status(fiber.StatusCreated).JSON(pkg_util_response.ResponseSuccess[any]("create employee success", nil, nil))
+	return ctx.Status(fiber.StatusCreated).JSON(response.ResponseSuccess[any]("create employee success", nil, nil))
 }

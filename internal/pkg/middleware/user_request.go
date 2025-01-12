@@ -11,8 +11,6 @@ import (
 	"github.com/rodericusifo/employee-management-api/internal/pkg/types"
 	"github.com/rodericusifo/employee-management-api/internal/pkg/util/patcher"
 	"github.com/rodericusifo/employee-management-api/internal/pkg/util/validator"
-
-	pkg_types "github.com/rodericusifo/employee-management-api/pkg/types"
 )
 
 func APIUserRequest() fiber.Handler {
@@ -23,21 +21,21 @@ func APIUserRequest() fiber.Handler {
 			return fiber.NewError(fiber.StatusUnprocessableEntity, fmt.Sprintf("invalid claims type. correct type: %T", claims))
 		}
 
-		userModelRes, err := patcher.UserResource().FirstUser(&pkg_types.QuerySQL{
-			Selects: []pkg_types.SelectQuerySQLOperation{
+		userModelRes, err := patcher.UserResource().FirstUser(&types.QuerySQL{
+			Selects: []types.SelectQuerySQLOperation{
 				{Field: "id"},
 				{Field: "name"},
 				{Field: "email"},
 			},
-			Searches: [][]pkg_types.SearchQuerySQLOperation{
+			Searches: [][]types.SearchQuerySQLOperation{
 				{
 					{Field: "xid", Operator: "=", Value: user.XID},
 				},
 			},
-			Joins: []pkg_types.JoinQuerySQLOperation{
+			Joins: []types.JoinQuerySQLOperation{
 				{
 					Relation: "Role",
-					Selects: []pkg_types.SelectJoinQuerySQLOperation{
+					Selects: []types.SelectJoinQuerySQLOperation{
 						{Field: "id"},
 						{Field: "slug"},
 					},

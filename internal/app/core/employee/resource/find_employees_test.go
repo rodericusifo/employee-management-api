@@ -7,9 +7,8 @@ import (
 	"github.com/stretchr/testify/assert"
 
 	"github.com/rodericusifo/employee-management-api/internal/app/model/database/sql"
-
-	pkg_types "github.com/rodericusifo/employee-management-api/pkg/types"
-	pkg_util_counter "github.com/rodericusifo/employee-management-api/pkg/util/counter"
+	"github.com/rodericusifo/employee-management-api/internal/pkg/types"
+	"github.com/rodericusifo/employee-management-api/internal/pkg/util/counter"
 )
 
 func init() {
@@ -19,7 +18,7 @@ func init() {
 func TestEmployeeResource_FindEmployees(t *testing.T) {
 	type (
 		args struct {
-			query *pkg_types.QuerySQL
+			query *types.QuerySQL
 		}
 		result struct {
 			value []*sql.Employee
@@ -37,10 +36,10 @@ func TestEmployeeResource_FindEmployees(t *testing.T) {
 		{
 			desc: "[ERROR]_because_something_error_happens",
 			input: args{
-				query: &pkg_types.QuerySQL{
-					Offset: pkg_util_counter.CountPaginationOffset(1, 10),
+				query: &types.QuerySQL{
+					Offset: counter.CountPaginationOffset(1, 10),
 					Limit:  10,
-					Searches: [][]pkg_types.SearchQuerySQLOperation{
+					Searches: [][]types.SearchQuerySQLOperation{
 						{
 							{Field: "user_id", Operator: "=", Value: uint(1)},
 						},
@@ -54,10 +53,10 @@ func TestEmployeeResource_FindEmployees(t *testing.T) {
 			before: func() {
 				{
 					var (
-						arg1 *pkg_types.QuerySQL = &pkg_types.QuerySQL{
-							Offset: pkg_util_counter.CountPaginationOffset(1, 10),
+						arg1 *types.QuerySQL = &types.QuerySQL{
+							Offset: counter.CountPaginationOffset(1, 10),
 							Limit:  10,
-							Searches: [][]pkg_types.SearchQuerySQLOperation{
+							Searches: [][]types.SearchQuerySQLOperation{
 								{
 									{Field: "user_id", Operator: "=", Value: uint(1)},
 								},
@@ -76,10 +75,10 @@ func TestEmployeeResource_FindEmployees(t *testing.T) {
 		{
 			desc: "[SUCCESS]_success_find_employees",
 			input: args{
-				query: &pkg_types.QuerySQL{
-					Offset: pkg_util_counter.CountPaginationOffset(1, 10),
+				query: &types.QuerySQL{
+					Offset: counter.CountPaginationOffset(1, 10),
 					Limit:  10,
-					Searches: [][]pkg_types.SearchQuerySQLOperation{
+					Searches: [][]types.SearchQuerySQLOperation{
 						{
 							{Field: "user_id", Operator: "=", Value: uint(1)},
 						},
@@ -106,10 +105,10 @@ func TestEmployeeResource_FindEmployees(t *testing.T) {
 			before: func() {
 				{
 					var (
-						arg1 *pkg_types.QuerySQL = &pkg_types.QuerySQL{
-							Offset: pkg_util_counter.CountPaginationOffset(1, 10),
+						arg1 *types.QuerySQL = &types.QuerySQL{
+							Offset: counter.CountPaginationOffset(1, 10),
 							Limit:  10,
-							Searches: [][]pkg_types.SearchQuerySQLOperation{
+							Searches: [][]types.SearchQuerySQLOperation{
 								{
 									{Field: "user_id", Operator: "=", Value: uint(1)},
 								},

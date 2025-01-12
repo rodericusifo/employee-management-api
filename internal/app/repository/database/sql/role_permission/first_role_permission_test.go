@@ -9,8 +9,7 @@ import (
 	"github.com/stretchr/testify/assert"
 
 	"github.com/rodericusifo/employee-management-api/internal/app/model/database/sql"
-
-	pkg_types "github.com/rodericusifo/employee-management-api/pkg/types"
+	"github.com/rodericusifo/employee-management-api/internal/pkg/types"
 )
 
 func init() {
@@ -20,7 +19,7 @@ func init() {
 func TestMysqlRolePermissionDatabaseSQLRepository_FirstRolePermission(t *testing.T) {
 	type (
 		args struct {
-			query *pkg_types.QuerySQL
+			query *types.QuerySQL
 		}
 		result struct {
 			value *sql.RolePermission
@@ -38,11 +37,11 @@ func TestMysqlRolePermissionDatabaseSQLRepository_FirstRolePermission(t *testing
 		{
 			desc: "[ERROR]_because_something_error_happens",
 			input: args{
-				query: &pkg_types.QuerySQL{
-					Selects: []pkg_types.SelectQuerySQLOperation{
+				query: &types.QuerySQL{
+					Selects: []types.SelectQuerySQLOperation{
 						{Field: "id"},
 					},
-					Searches: [][]pkg_types.SearchQuerySQLOperation{
+					Searches: [][]types.SearchQuerySQLOperation{
 						{
 							{Field: "role_id", Operator: "=", Value: 1},
 							{Field: "permission_id", Operator: "=", Value: 2},
@@ -74,11 +73,11 @@ func TestMysqlRolePermissionDatabaseSQLRepository_FirstRolePermission(t *testing
 		{
 			desc: "[SUCCESS]_first_role_permission",
 			input: args{
-				query: &pkg_types.QuerySQL{
-					Selects: []pkg_types.SelectQuerySQLOperation{
+				query: &types.QuerySQL{
+					Selects: []types.SelectQuerySQLOperation{
 						{Field: "id"},
 					},
-					Searches: [][]pkg_types.SearchQuerySQLOperation{
+					Searches: [][]types.SearchQuerySQLOperation{
 						{
 							{Field: "role_id", Operator: "=", Value: 1},
 							{Field: "permission_id", Operator: "=", Value: 2},
@@ -90,13 +89,13 @@ func TestMysqlRolePermissionDatabaseSQLRepository_FirstRolePermission(t *testing
 				value: &sql.RolePermission{
 					ID: 1,
 				},
-				err:   nil,
+				err: nil,
 			},
 			before: func() {
 				{
 					var (
-						arg1 = 1
-						arg2 = 2
+						arg1         = 1
+						arg2         = 2
 						rowsInstance = sqlmock.NewRows([]string{"id"})
 					)
 					rowsInstance.AddRow(1)
